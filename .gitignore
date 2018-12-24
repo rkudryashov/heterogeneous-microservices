@@ -1,0 +1,8 @@
+.gradle
+build/
+
+### IntelliJ IDEA ###
+.idea
+out/
+
+**/*.log
