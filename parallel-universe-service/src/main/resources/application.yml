@@ -1,3 +1,5 @@
 micronaut:
   application:
     name: parallel-universe-service
+  server:
+    port: 8081
