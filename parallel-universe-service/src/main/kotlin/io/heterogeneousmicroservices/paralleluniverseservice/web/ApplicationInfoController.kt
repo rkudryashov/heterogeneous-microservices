@@ -1,9 +1,11 @@
 package io.heterogeneousmicroservices.paralleluniverseservice.web
 
+import io.heterogeneousmicroservices.paralleluniverseservice.model.ApplicationInfo
 import io.heterogeneousmicroservices.paralleluniverseservice.service.ApplicationInfoService
 import io.micronaut.http.MediaType
 import io.micronaut.http.annotation.Controller
 import io.micronaut.http.annotation.Get
+import io.reactivex.Single
 import javax.inject.Inject
 
 @Controller("/application-info")
@@ -12,5 +14,5 @@ class ApplicationInfoController(
 ) {
 
     @Get(processes = [MediaType.APPLICATION_JSON])
-    fun index() = applicationInfoService.get()
+    fun index(): Single<ApplicationInfo> = applicationInfoService.get()
 }
