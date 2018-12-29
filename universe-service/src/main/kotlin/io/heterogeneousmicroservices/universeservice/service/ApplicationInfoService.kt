@@ -9,5 +9,6 @@ class ApplicationInfoService(
         @Value("\${spring.application.name}") private val applicationName: String
 ) {
 
-    fun get(): ApplicationInfo = ApplicationInfo(applicationName)
+    // todo implement projections
+    fun get(): ApplicationInfo = ApplicationInfo(applicationName, listOf())
 }
