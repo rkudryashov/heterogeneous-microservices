@@ -1,6 +1,6 @@
-package io.heterogeneousmicroservices.paralleluniverseservice.web
+package io.heterogeneousmicroservices.pinwheelgalaxyservice.web
 
-import io.heterogeneousmicroservices.paralleluniverseservice.model.ApplicationInfo
+import io.heterogeneousmicroservices.pinwheelgalaxyservice.model.GalaxyInfo
 import io.micronaut.context.ApplicationContext
 import io.micronaut.http.HttpRequest
 import io.micronaut.http.client.HttpClient
@@ -13,7 +13,7 @@ import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
-internal class ApplicationInfoControllerTest {
+internal class GalaxyInfoControllerTest {
 
     companion object {
         private var server: EmbeddedServer? = null
@@ -38,7 +38,7 @@ internal class ApplicationInfoControllerTest {
     @Test
     @Disabled
     fun index() {
-        val request: HttpRequest<Single<ApplicationInfo>> = HttpRequest.GET("/application-info")
+        val request: HttpRequest<Single<GalaxyInfo>> = HttpRequest.GET("/galaxy-info")
         val body = client?.toBlocking()?.retrieve(request)
         assertNotNull(body)
         assertEquals("Hello World", body)

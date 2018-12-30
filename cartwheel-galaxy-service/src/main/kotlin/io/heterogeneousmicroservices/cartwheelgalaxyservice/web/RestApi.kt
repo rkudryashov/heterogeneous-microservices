@@ -1,4 +1,4 @@
-package io.heterogeneousmicroservices.universeservice.web
+package io.heterogeneousmicroservices.cartwheelgalaxyservice.web
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -8,8 +8,8 @@ import org.springframework.web.reactive.function.server.router
 class RestApi {
 
     @Bean
-    fun itemsRouter(handler: ApplicationInfoHandler) = router {
-        path("/application-info").nest {
+    fun itemsRouter(handler: GalaxyInfoHandler) = router {
+        path("/galaxy-info").nest {
             GET("/", handler::getInfo)
         }
     }

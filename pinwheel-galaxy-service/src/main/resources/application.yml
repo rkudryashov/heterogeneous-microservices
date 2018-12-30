@@ -1,5 +1,5 @@
 micronaut:
   application:
-    name: parallel-universe-service
+    name: pinwheel-galaxy-service
   server:
     port: 8081
