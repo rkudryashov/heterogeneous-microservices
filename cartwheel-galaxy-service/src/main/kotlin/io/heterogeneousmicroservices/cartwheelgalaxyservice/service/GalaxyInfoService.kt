@@ -2,19 +2,24 @@ package io.heterogeneousmicroservices.cartwheelgalaxyservice.service
 
 import io.heterogeneousmicroservices.cartwheelgalaxyservice.config.GalaxyInfoConfigurationProperties
 import io.heterogeneousmicroservices.cartwheelgalaxyservice.model.GalaxyInfo
-import org.springframework.beans.factory.annotation.Autowired
+import io.heterogeneousmicroservices.cartwheelgalaxyservice.model.Projection
 import org.springframework.stereotype.Service
 
 @Service
 class GalaxyInfoService(
-        @Autowired private val galaxyInfoConfigurationProperties: GalaxyInfoConfigurationProperties
+        private val galaxyInfoConfigurationProperties: GalaxyInfoConfigurationProperties,
+        private val pinwheelGalaxyServiceClient: PinwheelGalaxyServiceClient
 ) {
 
-    // todo implement projections
-    fun get(): GalaxyInfo = GalaxyInfo(
+    fun get(projection: Projection): GalaxyInfo = GalaxyInfo(
             galaxyInfoConfigurationProperties.name,
             galaxyInfoConfigurationProperties.constellation,
             galaxyInfoConfigurationProperties.distance.toDouble(),
-            listOf()
+            when (projection) {
+                Projection.DEFAULT -> null
+                Projection.FULL -> listOf(
+                        pinwheelGalaxyServiceClient.getGalaxyInfo()
+                )
+            }
     )
 }
