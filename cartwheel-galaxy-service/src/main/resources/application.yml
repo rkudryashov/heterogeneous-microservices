@@ -1,3 +1,9 @@
 spring:
   application:
     name: cartwheel-galaxy-service
+
+# todo check data is correct
+galaxy-info:
+  name: Cartwheel
+  constellation: Sculptor
+  distance: 489.2
