@@ -7,11 +7,15 @@ import io.micronaut.http.MediaType
 import io.micronaut.http.annotation.Controller
 import io.micronaut.http.annotation.Get
 
-@Controller("/galaxy-info")
+@Controller(
+        value = "/galaxy-info",
+        consumes = [MediaType.APPLICATION_JSON],
+        produces = [MediaType.APPLICATION_JSON]
+)
 class GalaxyInfoController(
         private val galaxyInfoService: GalaxyInfoService
 ) {
 
-    @Get(processes = [MediaType.APPLICATION_JSON])
+    @Get
     fun index(projection: Projection?): GalaxyInfo = galaxyInfoService.get(projection ?: Projection.DEFAULT)
 }

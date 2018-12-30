@@ -1,4 +1,4 @@
-package io.heterogeneousmicroservices.pinwheelgalaxyservice.web
+package io.heterogeneousmicroservices.pinwheelgalaxyservice.service
 
 import io.heterogeneousmicroservices.pinwheelgalaxyservice.model.GalaxyInfo
 import io.micronaut.http.annotation.Get

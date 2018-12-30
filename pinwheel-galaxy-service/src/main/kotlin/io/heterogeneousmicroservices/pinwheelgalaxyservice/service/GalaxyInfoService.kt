@@ -3,7 +3,6 @@ package io.heterogeneousmicroservices.pinwheelgalaxyservice.service
 import io.heterogeneousmicroservices.pinwheelgalaxyservice.config.GalaxyInfoConfigurationProperties
 import io.heterogeneousmicroservices.pinwheelgalaxyservice.model.GalaxyInfo
 import io.heterogeneousmicroservices.pinwheelgalaxyservice.model.Projection
-import io.heterogeneousmicroservices.pinwheelgalaxyservice.web.CartwheelGalaxyServiceClient
 import javax.inject.Singleton
 
 @Singleton
