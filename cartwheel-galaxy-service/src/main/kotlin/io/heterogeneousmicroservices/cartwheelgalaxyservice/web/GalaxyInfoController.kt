@@ -18,5 +18,5 @@ class GalaxyInfoController(
 ) {
 
     @GetMapping
-    fun index(projection: Projection?): GalaxyInfo = galaxyInfoService.get(projection ?: Projection.DEFAULT)
+    fun get(projection: Projection?): GalaxyInfo = galaxyInfoService.get(projection ?: Projection.DEFAULT)
 }
