@@ -17,5 +17,5 @@ class GalaxyInfoController(
 ) {
 
     @Get
-    fun index(projection: Projection?): GalaxyInfo = galaxyInfoService.get(projection ?: Projection.DEFAULT)
+    fun get(projection: Projection?): GalaxyInfo = galaxyInfoService.get(projection ?: Projection.DEFAULT)
 }

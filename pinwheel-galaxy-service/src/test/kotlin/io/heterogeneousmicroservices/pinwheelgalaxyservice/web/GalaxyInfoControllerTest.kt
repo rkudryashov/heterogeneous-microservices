@@ -2,15 +2,12 @@ package io.heterogeneousmicroservices.pinwheelgalaxyservice.web
 
 import io.heterogeneousmicroservices.pinwheelgalaxyservice.model.GalaxyInfo
 import io.micronaut.context.ApplicationContext
-import io.micronaut.http.HttpRequest
 import io.micronaut.http.client.HttpClient
 import io.micronaut.runtime.server.EmbeddedServer
-import io.reactivex.Single
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.BeforeAll
-import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
 internal class GalaxyInfoControllerTest {
@@ -34,13 +31,12 @@ internal class GalaxyInfoControllerTest {
         }
     }
 
-    // todo enable
     @Test
-    @Disabled
-    fun index() {
-        val request: HttpRequest<Single<GalaxyInfo>> = HttpRequest.GET("/galaxy-info")
-        val body = client?.toBlocking()?.retrieve(request)
-        assertNotNull(body)
-        assertEquals("Hello World", body)
+    fun testGet() {
+        val responseBody: GalaxyInfo = client?.toBlocking()?.retrieve("/galaxy-info", GalaxyInfo::class.java)
+                ?: throw IllegalStateException("Http client must be not null")
+        assertNotNull(responseBody)
+        val expected = GalaxyInfo("Pinwheel", "Ursa Major", 20.87, null)
+        assertEquals(expected, responseBody)
     }
 }

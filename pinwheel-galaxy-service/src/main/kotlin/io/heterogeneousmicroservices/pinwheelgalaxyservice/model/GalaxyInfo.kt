@@ -1,6 +1,6 @@
 package io.heterogeneousmicroservices.pinwheelgalaxyservice.model
 
-class GalaxyInfo(
+data class GalaxyInfo(
         val name: String,
         val constellation: String,
         val distance: Double,
