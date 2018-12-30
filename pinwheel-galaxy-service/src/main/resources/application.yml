@@ -3,3 +3,8 @@ micronaut:
     name: pinwheel-galaxy-service
   server:
     port: 8081
+
+galaxy-info:
+  name: Pinwheel
+  constellation: Ursa Major
+  distance: 20.87
