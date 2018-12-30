@@ -2,18 +2,25 @@ package io.heterogeneousmicroservices.pinwheelgalaxyservice.service
 
 import io.heterogeneousmicroservices.pinwheelgalaxyservice.config.GalaxyInfoConfigurationProperties
 import io.heterogeneousmicroservices.pinwheelgalaxyservice.model.GalaxyInfo
+import io.heterogeneousmicroservices.pinwheelgalaxyservice.model.Projection
+import io.heterogeneousmicroservices.pinwheelgalaxyservice.web.CartwheelGalaxyServiceClient
 import javax.inject.Singleton
 
 @Singleton
 class GalaxyInfoService(
-        private val galaxyInfoConfigurationProperties: GalaxyInfoConfigurationProperties
+        private val galaxyInfoConfigurationProperties: GalaxyInfoConfigurationProperties,
+        private val cartwheelGalaxyServiceClient: CartwheelGalaxyServiceClient
 ) {
 
-    // todo implement projections
-    fun get(): GalaxyInfo = GalaxyInfo(
+    fun get(projection: Projection): GalaxyInfo = GalaxyInfo(
             galaxyInfoConfigurationProperties.name,
             galaxyInfoConfigurationProperties.constellation,
             galaxyInfoConfigurationProperties.distance.toDouble(),
-            listOf()
+            when (projection) {
+                Projection.DEFAULT -> null
+                Projection.FULL -> listOf(
+                        cartwheelGalaxyServiceClient.getGalaxyInfo()
+                )
+            }
     )
 }
