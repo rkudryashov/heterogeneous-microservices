@@ -1,9 +1,8 @@
-package io.heterogeneousmicroservices.helidonseservice.web
+package io.heterogeneousmicroservices.helidonseservice.service
 
 import io.helidon.webserver.WebServer
 import io.heterogeneousmicroservices.helidonseservice.TriangulumGalaxyServiceApplication
 import io.heterogeneousmicroservices.helidonseservice.model.GalaxyInfo
-import io.heterogeneousmicroservices.helidonseservice.service.GalaxyInfoJsonService
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeAll
@@ -13,7 +12,7 @@ import java.net.URL
 import java.util.concurrent.TimeUnit
 import javax.json.Json
 
-internal class GalaxyInfoControllerTest {
+internal class GalaxyInfoServiceTest {
 
     companion object {
         private var server: WebServer? = null

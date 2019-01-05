@@ -1,7 +1,8 @@
 server:
-  port: 8082
+  port: 8081
 
-galaxy-info:
-  name: Triangulum
-  constellation: Triangulum
-  distance: 2.723
+service-info:
+  name: helidon-se-service
+  framework:
+    name: Helidon SE
+    releaseYear: 2019
