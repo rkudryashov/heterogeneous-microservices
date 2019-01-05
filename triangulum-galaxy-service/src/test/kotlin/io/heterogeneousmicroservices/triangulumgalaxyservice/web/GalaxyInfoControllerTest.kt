@@ -22,7 +22,7 @@ internal class GalaxyInfoControllerTest {
         @JvmStatic
         // todo rewrite using coroutines
         fun startServer() {
-            val startTimeout = 2000L // 2 seconds should be enough
+            val startTimeout = 4000L // 4 seconds should be enough
             val startTime = System.currentTimeMillis()
 
             server = TriangulumGalaxyServiceApplication.startServer()
@@ -41,7 +41,7 @@ internal class GalaxyInfoControllerTest {
         fun stopServer() {
             server?.shutdown()
                     ?.toCompletableFuture()
-                    ?.get(10, TimeUnit.SECONDS);
+                    ?.get(10, TimeUnit.SECONDS)
         }
     }
 

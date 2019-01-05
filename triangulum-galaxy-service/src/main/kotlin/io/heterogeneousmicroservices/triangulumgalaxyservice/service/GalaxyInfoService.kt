@@ -1,26 +1,19 @@
 package io.heterogeneousmicroservices.triangulumgalaxyservice.service
 
 import io.helidon.common.http.Http
-import io.helidon.config.Config
 import io.helidon.webserver.Handler
 import io.helidon.webserver.Routing
 import io.helidon.webserver.ServerRequest
 import io.helidon.webserver.ServerResponse
 import io.helidon.webserver.Service
+import io.heterogeneousmicroservices.triangulumgalaxyservice.config.GalaxyInfoProperties
 import io.heterogeneousmicroservices.triangulumgalaxyservice.model.GalaxyInfo
 import io.heterogeneousmicroservices.triangulumgalaxyservice.model.Projection
 import javax.json.JsonObject
 
 class GalaxyInfoService : Service {
 
-    companion object {
-        val nameKey = "name"
-        val constellationKey = "constellation"
-        val distanceKey = "distance"
-        val availableGalaxiesKey = "availableGalaxies"
-    }
-
-    private val galaxyInfoConfig = Config.create().get("galaxy-info")
+    private val galaxyInfoProperties = GalaxyInfoProperties()
     private val galaxyInfoJsonService = GalaxyInfoJsonService()
 
     override fun update(rules: Routing.Rules<out Routing.Rules<*>>) {
@@ -40,9 +33,9 @@ class GalaxyInfoService : Service {
     }
 
     private fun get(projection: Projection): GalaxyInfo = GalaxyInfo(
-            galaxyInfoConfig[nameKey].asString(),
-            galaxyInfoConfig[constellationKey].asString(),
-            galaxyInfoConfig[distanceKey].asDouble(),
+            galaxyInfoProperties.name,
+            galaxyInfoProperties.constellation,
+            galaxyInfoProperties.distance,
             when (projection) {
                 Projection.DEFAULT -> null
                 Projection.FULL -> getAvailableGalaxies()
