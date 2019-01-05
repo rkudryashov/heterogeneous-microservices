@@ -1,6 +1,6 @@
 rootProject.name = "heterogeneous-microservices"
 
-include("helidon-se-service", "micronaut-service", "spring-boot-service")
+include("helidon-service", "micronaut-service", "spring-boot-service")
 
 val kotlinVersion: String by settings
 val springBootPluginVersion: String by settings
