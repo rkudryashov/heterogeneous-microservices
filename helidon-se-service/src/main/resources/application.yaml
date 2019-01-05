@@ -1,8 +1,8 @@
 server:
   port: 8081
 
-service-info:
-  name: helidon-se-service
+application-info:
+  name: helidon-service
   framework:
     name: Helidon SE
     releaseYear: 2019

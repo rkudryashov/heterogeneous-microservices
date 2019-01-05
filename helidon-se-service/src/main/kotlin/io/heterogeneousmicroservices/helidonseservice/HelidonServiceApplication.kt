@@ -7,10 +7,10 @@ import io.helidon.webserver.Routing
 import io.helidon.webserver.ServerConfiguration
 import io.helidon.webserver.WebServer
 import io.helidon.webserver.json.JsonSupport
-import io.heterogeneousmicroservices.helidonseservice.service.GalaxyInfoService
+import io.heterogeneousmicroservices.helidonseservice.service.ApplicationInfoService
 import org.slf4j.LoggerFactory
 
-object TriangulumGalaxyServiceApplication {
+object HelidonServiceApplication {
 
     private val log = LoggerFactory.getLogger(this::class.java)
 
@@ -40,7 +40,7 @@ object TriangulumGalaxyServiceApplication {
         return Routing.builder()
                 // add JSON support to all end-points
                 .register(JsonSupport.get())
-                .register("/galaxy-info", GalaxyInfoService())
+                .register("/application-info", ApplicationInfoService())
                 .error(NotFoundException::class.java) { req, res, ex ->
                     log.error("NotFoundException:", ex)
                     res.status(Http.Status.BAD_REQUEST_400).send()

@@ -1,8 +1,8 @@
 package io.heterogeneousmicroservices.helidonseservice.service
 
 import io.helidon.webserver.WebServer
-import io.heterogeneousmicroservices.helidonseservice.TriangulumGalaxyServiceApplication
-import io.heterogeneousmicroservices.helidonseservice.model.GalaxyInfo
+import io.heterogeneousmicroservices.helidonseservice.HelidonServiceApplication
+import io.heterogeneousmicroservices.helidonseservice.model.ApplicationInfo
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeAll
@@ -12,7 +12,7 @@ import java.net.URL
 import java.util.concurrent.TimeUnit
 import javax.json.Json
 
-internal class GalaxyInfoServiceTest {
+internal class ApplicationInfoServiceTest {
 
     companion object {
         private var server: WebServer? = null
@@ -24,7 +24,7 @@ internal class GalaxyInfoServiceTest {
             val startTimeout = 4000L // 4 seconds should be enough
             val startTime = System.currentTimeMillis()
 
-            server = TriangulumGalaxyServiceApplication.startServer()
+            server = HelidonServiceApplication.startServer()
             server?.let {
                 while (!it.isRunning) {
                     Thread.sleep(100)
@@ -44,15 +44,21 @@ internal class GalaxyInfoServiceTest {
         }
     }
 
-    private val galaxyInfoJsonService = GalaxyInfoJsonService()
+    private val applicationInfoJsonService = ApplicationInfoJsonService()
 
     @Test
     fun testGet() {
-        val connection = getURLConnection("GET", "/galaxy-info")
+        val connection = getURLConnection("GET", "/application-info")
         assertEquals(200, connection.responseCode)
+
         val jsonReader = Json.createReader(connection.inputStream)
         val jsonObject = jsonReader.readObject()
-        val expectedJsonObject = galaxyInfoJsonService.getJsonObjectBuilder(GalaxyInfo("Triangulum", "Triangulum", 2.723, null)).build()
+
+        val expectedJsonObject = applicationInfoJsonService.getJsonObjectBuilder(ApplicationInfo(
+                "helidon-service",
+                ApplicationInfo.Framework("Helidon SE", 2019), null))
+                .build()
+
         assertEquals(expectedJsonObject, jsonObject)
     }
 
