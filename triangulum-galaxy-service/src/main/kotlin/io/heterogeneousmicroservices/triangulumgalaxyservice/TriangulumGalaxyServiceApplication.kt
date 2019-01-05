@@ -16,6 +16,10 @@ object TriangulumGalaxyServiceApplication {
 
     @JvmStatic
     fun main(args: Array<String>) {
+        startServer()
+    }
+
+    fun startServer(): WebServer {
         // read config from application.yaml
         val config = Config.create()
         val serverConfig = ServerConfiguration.fromConfig(config.get("server"))
@@ -28,6 +32,8 @@ object TriangulumGalaxyServiceApplication {
         server.start().thenAccept { ws ->
             log.info("Service running at: http://localhost:" + ws.port())
         }
+
+        return server
     }
 
     private fun createRouting(): Routing {

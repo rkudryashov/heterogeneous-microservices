@@ -1,6 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 val helidonVersion: String by project
+val kotlinCoroutinesVersion: String by project
 val logbackVersion: String by project
 val junitVersion: String by project
 
@@ -23,6 +24,7 @@ repositories {
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
     implementation(kotlin("reflect"))
+    api("org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinCoroutinesVersion")
     implementation("io.helidon.webserver:helidon-webserver-bundle")
     implementation("io.helidon.config:helidon-config-yaml")
     api("ch.qos.logback:logback-classic:$logbackVersion")

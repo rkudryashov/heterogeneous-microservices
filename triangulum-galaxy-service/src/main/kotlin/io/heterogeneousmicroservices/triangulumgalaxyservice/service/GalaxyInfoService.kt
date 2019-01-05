@@ -9,18 +9,19 @@ import io.helidon.webserver.ServerResponse
 import io.helidon.webserver.Service
 import io.heterogeneousmicroservices.triangulumgalaxyservice.model.GalaxyInfo
 import io.heterogeneousmicroservices.triangulumgalaxyservice.model.Projection
-import javax.json.Json
 import javax.json.JsonObject
-import javax.json.JsonObjectBuilder
 
 class GalaxyInfoService : Service {
 
+    companion object {
+        val nameKey = "name"
+        val constellationKey = "constellation"
+        val distanceKey = "distance"
+        val availableGalaxiesKey = "availableGalaxies"
+    }
+
     private val galaxyInfoConfig = Config.create().get("galaxy-info")
-    private val jsonBuilderFactory = Json.createBuilderFactory(null)
-    private val nameKey = "name"
-    private val constellationKey = "constellation"
-    private val distanceKey = "distance"
-    private val availableGalaxiesKey = "availableGalaxies"
+    private val galaxyInfoJsonService = GalaxyInfoJsonService()
 
     override fun update(rules: Routing.Rules<out Routing.Rules<*>>) {
         rules
@@ -35,18 +36,8 @@ class GalaxyInfoService : Service {
 
         response
                 .status(Http.ResponseStatus.from(200))
-                .send<JsonObject>(getJsonObjectBuilderForGalaxyInfo(this.get(projection)).build())
+                .send<JsonObject>(galaxyInfoJsonService.getJsonObjectBuilder(this.get(projection)).build())
     }
-
-    private fun getJsonObjectBuilderForGalaxyInfo(galaxyInfo: GalaxyInfo): JsonObjectBuilder = jsonBuilderFactory.createObjectBuilder()
-            .add(nameKey, galaxyInfo.name)
-            .add(constellationKey, galaxyInfo.constellation)
-            .add(distanceKey, galaxyInfo.distance)
-            .add(availableGalaxiesKey, jsonBuilderFactory.createArrayBuilder().apply {
-                galaxyInfo.availableGalaxies?.let { it ->
-                    it.forEach { this.add(getJsonObjectBuilderForGalaxyInfo(it)) }
-                }
-            })
 
     private fun get(projection: Projection): GalaxyInfo = GalaxyInfo(
             galaxyInfoConfig[nameKey].asString(),
