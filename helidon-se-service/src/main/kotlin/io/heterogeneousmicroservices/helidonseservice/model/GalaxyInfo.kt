@@ -1,4 +1,4 @@
-package io.heterogeneousmicroservices.triangulumgalaxyservice.model
+package io.heterogeneousmicroservices.helidonseservice.model
 
 data class GalaxyInfo(
         val name: String,

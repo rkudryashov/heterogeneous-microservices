@@ -1,4 +1,4 @@
-package io.heterogeneousmicroservices.triangulumgalaxyservice.config
+package io.heterogeneousmicroservices.helidonseservice.config
 
 import io.helidon.config.Config
 

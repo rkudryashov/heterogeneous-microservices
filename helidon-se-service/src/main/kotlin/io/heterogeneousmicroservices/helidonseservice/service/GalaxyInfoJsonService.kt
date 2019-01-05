@@ -1,7 +1,7 @@
-package io.heterogeneousmicroservices.triangulumgalaxyservice.service
+package io.heterogeneousmicroservices.helidonseservice.service
 
-import io.heterogeneousmicroservices.triangulumgalaxyservice.config.GalaxyInfoProperties
-import io.heterogeneousmicroservices.triangulumgalaxyservice.model.GalaxyInfo
+import io.heterogeneousmicroservices.helidonseservice.config.GalaxyInfoProperties
+import io.heterogeneousmicroservices.helidonseservice.model.GalaxyInfo
 import javax.json.Json
 import javax.json.JsonObjectBuilder
 

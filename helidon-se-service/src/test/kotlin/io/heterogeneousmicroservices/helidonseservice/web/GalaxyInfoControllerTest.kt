@@ -1,9 +1,9 @@
-package io.heterogeneousmicroservices.triangulumgalaxyservice.web
+package io.heterogeneousmicroservices.helidonseservice.web
 
 import io.helidon.webserver.WebServer
-import io.heterogeneousmicroservices.triangulumgalaxyservice.TriangulumGalaxyServiceApplication
-import io.heterogeneousmicroservices.triangulumgalaxyservice.model.GalaxyInfo
-import io.heterogeneousmicroservices.triangulumgalaxyservice.service.GalaxyInfoJsonService
+import io.heterogeneousmicroservices.helidonseservice.TriangulumGalaxyServiceApplication
+import io.heterogeneousmicroservices.helidonseservice.model.GalaxyInfo
+import io.heterogeneousmicroservices.helidonseservice.service.GalaxyInfoJsonService
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeAll

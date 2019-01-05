@@ -1,4 +1,4 @@
-package io.heterogeneousmicroservices.triangulumgalaxyservice.service
+package io.heterogeneousmicroservices.helidonseservice.service
 
 import io.helidon.common.http.Http
 import io.helidon.webserver.Handler
@@ -6,9 +6,9 @@ import io.helidon.webserver.Routing
 import io.helidon.webserver.ServerRequest
 import io.helidon.webserver.ServerResponse
 import io.helidon.webserver.Service
-import io.heterogeneousmicroservices.triangulumgalaxyservice.config.GalaxyInfoProperties
-import io.heterogeneousmicroservices.triangulumgalaxyservice.model.GalaxyInfo
-import io.heterogeneousmicroservices.triangulumgalaxyservice.model.Projection
+import io.heterogeneousmicroservices.helidonseservice.config.GalaxyInfoProperties
+import io.heterogeneousmicroservices.helidonseservice.model.GalaxyInfo
+import io.heterogeneousmicroservices.helidonseservice.model.Projection
 import javax.json.JsonObject
 
 class GalaxyInfoService : Service {

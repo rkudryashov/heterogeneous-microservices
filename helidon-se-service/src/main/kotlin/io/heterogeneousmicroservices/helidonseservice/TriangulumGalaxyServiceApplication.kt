@@ -1,4 +1,4 @@
-package io.heterogeneousmicroservices.triangulumgalaxyservice
+package io.heterogeneousmicroservices.helidonseservice
 
 import io.helidon.common.http.Http
 import io.helidon.config.Config
@@ -7,7 +7,7 @@ import io.helidon.webserver.Routing
 import io.helidon.webserver.ServerConfiguration
 import io.helidon.webserver.WebServer
 import io.helidon.webserver.json.JsonSupport
-import io.heterogeneousmicroservices.triangulumgalaxyservice.service.GalaxyInfoService
+import io.heterogeneousmicroservices.helidonseservice.service.GalaxyInfoService
 import org.slf4j.LoggerFactory
 
 object TriangulumGalaxyServiceApplication {
