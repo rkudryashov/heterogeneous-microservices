@@ -20,6 +20,7 @@ internal class GalaxyInfoControllerTest {
 
         @BeforeAll
         @JvmStatic
+        // todo rewrite using coroutines
         fun startServer() {
             val startTimeout = 2000L // 2 seconds should be enough
             val startTime = System.currentTimeMillis()

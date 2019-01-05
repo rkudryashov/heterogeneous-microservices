@@ -18,7 +18,7 @@ internal class GalaxyInfoControllerTest {
 
         @BeforeAll
         @JvmStatic
-        fun beforeAll() {
+        fun startServer() {
             server = ApplicationContext.run(EmbeddedServer::class.java)
             client = server?.applicationContext?.createBean(HttpClient::class.java, server?.url) ?: throw IllegalStateException("Cannot get server instance")
         }

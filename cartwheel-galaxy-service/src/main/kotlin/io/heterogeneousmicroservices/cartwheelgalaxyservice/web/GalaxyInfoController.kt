@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController
         path = ["/galaxy-info"],
         produces = [MediaType.APPLICATION_JSON_UTF8_VALUE]
 )
+// todo replace with functional routing
 class GalaxyInfoController(
         private val galaxyInfoService: GalaxyInfoService
 ) {

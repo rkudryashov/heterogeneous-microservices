@@ -22,4 +22,6 @@ class GalaxyInfoService(
                 )
             }
     )
+
+    // todo separate in all services getting of available galaxies
 }
