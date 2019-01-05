@@ -1,0 +1,48 @@
+package io.heterogeneousmicroservices.triangulumgalaxyservice
+
+import io.helidon.common.http.Http
+import io.helidon.config.Config
+import io.helidon.webserver.NotFoundException
+import io.helidon.webserver.Routing
+import io.helidon.webserver.ServerConfiguration
+import io.helidon.webserver.WebServer
+import io.helidon.webserver.json.JsonSupport
+import io.heterogeneousmicroservices.triangulumgalaxyservice.service.GalaxyInfoService
+import org.slf4j.LoggerFactory
+
+object TriangulumGalaxyServiceApplication {
+
+    private val log = LoggerFactory.getLogger(this::class.java)
+
+    @JvmStatic
+    fun main(args: Array<String>) {
+        // read config from application.yaml
+        val config = Config.create()
+        val serverConfig = ServerConfiguration.fromConfig(config.get("server"))
+
+        val server: WebServer = WebServer
+                .builder(createRouting())
+                .configuration(serverConfig)
+                .build()
+
+        server.start().thenAccept { ws ->
+            log.info("Service running at: http://localhost:" + ws.port())
+        }
+    }
+
+    private fun createRouting(): Routing {
+        return Routing.builder()
+                // add JSON support to all end-points
+                .register(JsonSupport.get())
+                .register("/galaxy-info", GalaxyInfoService())
+                .error(NotFoundException::class.java) { req, res, ex ->
+                    log.error("NotFoundException:", ex)
+                    res.status(Http.Status.BAD_REQUEST_400).send()
+                }
+                .error(Exception::class.java) { req, res, ex ->
+                    log.error("Exception:", ex)
+                    res.status(Http.Status.INTERNAL_SERVER_ERROR_500).send()
+                }
+                .build()
+    }
+}

@@ -1,6 +1,6 @@
 rootProject.name = "heterogeneous-microservices"
 
-include("cartwheel-galaxy-service", "pinwheel-galaxy-service")
+include("cartwheel-galaxy-service", "pinwheel-galaxy-service", "triangulum-galaxy-service")
 
 val kotlinVersion: String by settings
 val springBootPluginVersion: String by settings

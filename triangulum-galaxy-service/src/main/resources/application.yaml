@@ -1,0 +1,7 @@
+server:
+  port: 8082
+
+galaxy-info:
+  name: Triangulum
+  constellation: Triangulum
+  distance: 2.723
