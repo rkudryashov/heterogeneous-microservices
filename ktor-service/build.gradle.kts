@@ -8,6 +8,7 @@ val logbackVersion: String by project
 plugins {
     application
     kotlin("jvm")
+    jacoco
 }
 
 application {
@@ -20,15 +21,21 @@ repositories {
 }
 
 dependencies {
-    compile("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion")
-    compile("io.ktor:ktor-server-netty:$ktorVersion")
-    compile("io.ktor:ktor-jackson:$ktorVersion")
-    compile("ch.qos.logback:logback-classic:$logbackVersion")
-    testCompile("io.ktor:ktor-server-tests:$ktorVersion")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion")
+    implementation("io.ktor:ktor-server-netty:$ktorVersion")
+    implementation("io.ktor:ktor-jackson:$ktorVersion")
+    implementation("ch.qos.logback:logback-classic:$logbackVersion")
+    testImplementation("io.ktor:ktor-server-tests:$ktorVersion")
 }
 
-kotlin.sourceSets["main"].kotlin.srcDirs("src")
-kotlin.sourceSets["test"].kotlin.srcDirs("test")
-
-sourceSets["main"].resources.srcDirs("resources")
-sourceSets["test"].resources.srcDirs("testresources")
+tasks {
+    withType<Test> {
+        useJUnitPlatform()
+    }
+    withType<KotlinCompile> {
+        kotlinOptions {
+            jvmTarget = "1.8"
+            freeCompilerArgs = listOf("-Xjsr305=strict")
+        }
+    }
+}
