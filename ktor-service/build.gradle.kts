@@ -5,6 +5,7 @@ val kotlinVersion: String by project
 val ktorVersion: String by project
 val koinVersion: String by project
 val logbackVersion: String by project
+val junitVersion: String by project
 
 plugins {
     // todo shadow plugin
@@ -30,7 +31,9 @@ dependencies {
     implementation("io.ktor:ktor-jackson:$ktorVersion")
     api("org.koin:koin-ktor:$koinVersion")
     implementation("ch.qos.logback:logback-classic:$logbackVersion")
-    testImplementation("io.ktor:ktor-server-tests:$ktorVersion")
+    testImplementation("io.ktor:ktor-server-test-host:$ktorVersion")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:$junitVersion")
+    testRuntime("org.junit.jupiter:junit-jupiter-engine:$junitVersion")
 }
 
 tasks {

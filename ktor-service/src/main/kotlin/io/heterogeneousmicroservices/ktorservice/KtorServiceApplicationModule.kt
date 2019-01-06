@@ -1,5 +1,6 @@
 package io.heterogeneousmicroservices.ktorservice
 
+import io.heterogeneousmicroservices.ktorservice.config.ApplicationInfoProperties
 import io.heterogeneousmicroservices.ktorservice.model.Projection
 import io.heterogeneousmicroservices.ktorservice.service.ApplicationInfoService
 import io.ktor.application.Application
@@ -13,11 +14,19 @@ import io.ktor.jackson.jackson
 import io.ktor.response.respond
 import io.ktor.routing.get
 import io.ktor.routing.routing
+import org.koin.dsl.module.module
 import org.koin.ktor.ext.inject
+import org.koin.standalone.StandAloneContext.startKoin
 
-@Suppress("unused") // Referenced in application.conf
-@kotlin.jvm.JvmOverloads
-fun Application.module(testing: Boolean = false) {
+val applicationContext = module {
+    single { ApplicationInfoService(get()) }
+    single { ApplicationInfoProperties() }
+}
+
+// referenced in application.conf
+fun Application.module() {
+    startKoin(listOf(applicationContext))
+
     install(DefaultHeaders)
     install(Compression)
     install(CallLogging)
