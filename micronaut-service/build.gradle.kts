@@ -28,7 +28,7 @@ dependencies {
     kapt("io.micronaut:micronaut-inject-java")
     kapt("io.micronaut:micronaut-validation")
     implementation(kotlin("stdlib-jdk8"))
-    implementation(kotlin("reflect"))
+//    implementation(kotlin("reflect"))
     implementation("javax.annotation:javax.annotation-api")
     implementation("io.micronaut:micronaut-runtime")
     implementation("io.micronaut:micronaut-http-client")

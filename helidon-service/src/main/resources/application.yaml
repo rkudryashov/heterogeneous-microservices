@@ -1,3 +1,7 @@
+# todo change to MP?
+# todo implement service discovery
+# todo implement declarative client
+# todo process objects with json-p
 server:
   port: 8081
 
