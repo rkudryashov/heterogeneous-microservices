@@ -8,16 +8,15 @@ val logbackVersion: String by project
 val junitVersion: String by project
 
 plugins {
-    // todo shadow plugin
-    // todo remove?
     application
+    id("com.github.johnrengelman.shadow")
     kotlin("jvm")
     jacoco
 }
 
-// todo remove?
 application {
-    mainClassName = "io.ktor.server.netty.EngineMain"
+    mainClassName = "io.heterogeneousmicroservices.ktorservice.KtorServiceApplicationKt"
+//    mainClassName = "io.ktor.server.netty.EngineMain"
 }
 
 repositories {
