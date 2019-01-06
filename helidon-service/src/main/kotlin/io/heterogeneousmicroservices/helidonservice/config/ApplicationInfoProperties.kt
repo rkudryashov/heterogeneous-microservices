@@ -1,4 +1,4 @@
-package io.heterogeneousmicroservices.helidonseservice.config
+package io.heterogeneousmicroservices.helidonservice.config
 
 import io.helidon.config.Config
 

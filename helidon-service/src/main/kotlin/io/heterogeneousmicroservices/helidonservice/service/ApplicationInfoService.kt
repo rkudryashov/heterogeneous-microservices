@@ -1,4 +1,4 @@
-package io.heterogeneousmicroservices.helidonseservice.service
+package io.heterogeneousmicroservices.helidonservice.service
 
 import io.helidon.common.http.Http
 import io.helidon.webserver.Handler
@@ -6,9 +6,9 @@ import io.helidon.webserver.Routing
 import io.helidon.webserver.ServerRequest
 import io.helidon.webserver.ServerResponse
 import io.helidon.webserver.Service
-import io.heterogeneousmicroservices.helidonseservice.config.ApplicationInfoProperties
-import io.heterogeneousmicroservices.helidonseservice.model.ApplicationInfo
-import io.heterogeneousmicroservices.helidonseservice.model.Projection
+import io.heterogeneousmicroservices.helidonservice.config.ApplicationInfoProperties
+import io.heterogeneousmicroservices.helidonservice.model.ApplicationInfo
+import io.heterogeneousmicroservices.helidonservice.model.Projection
 import javax.json.JsonObject
 
 class ApplicationInfoService : Service {

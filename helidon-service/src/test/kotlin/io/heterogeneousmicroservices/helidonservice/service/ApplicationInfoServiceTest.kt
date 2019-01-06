@@ -1,8 +1,8 @@
-package io.heterogeneousmicroservices.helidonseservice.service
+package io.heterogeneousmicroservices.helidonservice.service
 
 import io.helidon.webserver.WebServer
-import io.heterogeneousmicroservices.helidonseservice.HelidonServiceApplication
-import io.heterogeneousmicroservices.helidonseservice.model.ApplicationInfo
+import io.heterogeneousmicroservices.helidonservice.HelidonServiceApplication
+import io.heterogeneousmicroservices.helidonservice.model.ApplicationInfo
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeAll

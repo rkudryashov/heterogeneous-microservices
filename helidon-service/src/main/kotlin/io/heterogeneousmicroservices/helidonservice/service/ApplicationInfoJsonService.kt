@@ -1,7 +1,7 @@
-package io.heterogeneousmicroservices.helidonseservice.service
+package io.heterogeneousmicroservices.helidonservice.service
 
-import io.heterogeneousmicroservices.helidonseservice.config.ApplicationInfoProperties
-import io.heterogeneousmicroservices.helidonseservice.model.ApplicationInfo
+import io.heterogeneousmicroservices.helidonservice.config.ApplicationInfoProperties
+import io.heterogeneousmicroservices.helidonservice.model.ApplicationInfo
 import javax.json.Json
 import javax.json.JsonObjectBuilder
 
