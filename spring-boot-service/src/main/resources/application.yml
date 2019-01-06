@@ -1,9 +1,12 @@
 spring:
   application:
-    name: cartwheel-galaxy-service
+    name: spring-boot-service
 
-# todo check data is correct
-galaxy-info:
-  name: Cartwheel
-  constellation: Sculptor
-  distance: 489.2
+server:
+  port: 8085
+
+application-info:
+  name: ${spring.application.name}
+  framework:
+    name: Spring Boot
+    releaseYear: 2014

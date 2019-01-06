@@ -1,6 +1,6 @@
-package io.heterogeneousmicroservices.cartwheelgalaxyservice.web
+package io.heterogeneousmicroservices.springbootservice.web
 
-import io.heterogeneousmicroservices.cartwheelgalaxyservice.model.GalaxyInfo
+import io.heterogeneousmicroservices.springbootservice.model.ApplicationInfo
 import org.hamcrest.MatcherAssert
 import org.hamcrest.Matchers
 import org.junit.jupiter.api.Test
@@ -13,7 +13,7 @@ import org.springframework.test.web.reactive.server.WebTestClient
 
 @ExtendWith(SpringExtension::class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-internal class GalaxyInfoControllerTest {
+internal class ApplicationInfoControllerTest {
 
     @Autowired
     private lateinit var webTestClient: WebTestClient
@@ -21,13 +21,19 @@ internal class GalaxyInfoControllerTest {
     @Test
     fun testGet() {
         webTestClient
-                .get().uri("/galaxy-info")
+                .get().uri("/application-info")
                 .exchange()
                 .expectHeader().contentType(MediaType.APPLICATION_JSON_UTF8)
                 .expectStatus().isOk
-                .expectBody(GalaxyInfo::class.java)
+                .expectBody(ApplicationInfo::class.java)
                 .returnResult().apply {
-                    MatcherAssert.assertThat(this.responseBody, Matchers.equalTo(GalaxyInfo("Cartwheel", "Sculptor", 489.2, null)))
+                    MatcherAssert.assertThat(this.responseBody, Matchers.equalTo(
+                            ApplicationInfo(
+                                    "spring-boot-service",
+                                    ApplicationInfo.Framework("Spring Boot", 2014),
+                                    null
+                            )
+                    ))
                 }
     }
 }
