@@ -1,4 +1,4 @@
-package io.heterogeneousmicroservices.helidonseservice.model
+package io.heterogeneousmicroservices.micronautservice.model
 
 data class ApplicationInfo(
         val name: String,
