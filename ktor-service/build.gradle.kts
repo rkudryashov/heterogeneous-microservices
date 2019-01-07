@@ -22,6 +22,7 @@ application {
 
 repositories {
     mavenCentral()
+    maven("https://dl.bintray.com/kotlin/kotlinx")
     jcenter()
 }
 
@@ -29,6 +30,8 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion")
     implementation("io.ktor:ktor-server-netty:$ktorVersion")
     implementation("io.ktor:ktor-jackson:$ktorVersion")
+    implementation("io.ktor:ktor-client-apache:$ktorVersion")
+    implementation("io.ktor:ktor-client-jackson:$ktorVersion")
     implementation("org.koin:koin-ktor:$koinVersion")
     implementation("com.orbitz.consul:consul-client:$consulClientVersion")
     implementation("ch.qos.logback:logback-classic:$logbackVersion")

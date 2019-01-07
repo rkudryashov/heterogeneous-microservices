@@ -48,9 +48,11 @@ fun Application.module() {
     }
 
     routing {
-        get("/application-info") {
-            // todo process projection
-            call.respond(applicationInfoService.get(Projection.DEFAULT))
+        get("/application-info{projection?}") {
+            val requestProjection: String? = call.parameters["projection"]
+            val projection =
+                if (!requestProjection.isNullOrBlank()) Projection.valueOf(requestProjection.toUpperCase()) else Projection.DEFAULT
+            call.respond(applicationInfoService.get(projection))
         }
     }
 }
