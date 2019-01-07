@@ -9,7 +9,7 @@ class ApplicationInfoProperties {
         const val nameKey = "name"
         const val frameworkKey = "framework"
         const val frameworkNameKey = "name"
-        const val frameworkReleaseYearKey = "releaseYear"
+        const val frameworkReleaseYearKey = "release-year"
         const val followingApplicationKey = "followingApplication"
     }
 

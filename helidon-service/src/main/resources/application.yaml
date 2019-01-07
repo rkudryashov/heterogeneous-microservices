@@ -9,4 +9,4 @@ application-info:
   name: helidon-service
   framework:
     name: Helidon SE
-    releaseYear: 2019
+    release-year: 2019

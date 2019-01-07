@@ -13,4 +13,4 @@ application-info:
   name: ${micronaut.application.name}
   framework:
     name: Micronaut
-    releaseYear: 2018
+    release-year: 2018

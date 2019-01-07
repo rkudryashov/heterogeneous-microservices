@@ -1,0 +1,6 @@
+spring:
+  cloud:
+    bus:
+      enabled: false
+    consul:
+      enabled: false
