@@ -39,8 +39,8 @@ internal class ApplicationInfoServiceTest {
         @JvmStatic
         fun stopServer() {
             server?.shutdown()
-                    ?.toCompletableFuture()
-                    ?.get(10, TimeUnit.SECONDS)
+                ?.toCompletableFuture()
+                ?.get(10, TimeUnit.SECONDS)
         }
     }
 
@@ -54,10 +54,13 @@ internal class ApplicationInfoServiceTest {
         val jsonReader = Json.createReader(connection.inputStream)
         val jsonObject = jsonReader.readObject()
 
-        val expectedJsonObject = applicationInfoJsonService.getJsonObjectBuilder(ApplicationInfo(
+        val expectedJsonObject = applicationInfoJsonService.getJsonObjectBuilder(
+            ApplicationInfo(
                 "helidon-service",
-                ApplicationInfo.Framework("Helidon SE", 2019), null))
-                .build()
+                ApplicationInfo.Framework("Helidon SE", 2019), null
+            )
+        )
+            .build()
 
         assertEquals(expectedJsonObject, jsonObject)
     }

@@ -10,12 +10,12 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping(
-        path = ["/application-info"],
-        produces = [MediaType.APPLICATION_JSON_UTF8_VALUE]
+    path = ["/application-info"],
+    produces = [MediaType.APPLICATION_JSON_UTF8_VALUE]
 )
 // todo replace with functional routing
 class ApplicationInfoController(
-        private val applicationInfoService: ApplicationInfoService
+    private val applicationInfoService: ApplicationInfoService
 ) {
 
     @GetMapping

@@ -7,19 +7,19 @@ import javax.inject.Singleton
 
 @Singleton
 class ApplicationInfoService(
-        private val applicationInfoConfigurationProperties: ApplicationInfoConfigurationProperties,
-        private val springBootServiceClient: SpringBootServiceClient
+    private val applicationInfoConfigurationProperties: ApplicationInfoConfigurationProperties,
+    private val springBootServiceClient: SpringBootServiceClient
 ) {
 
     fun get(projection: Projection): ApplicationInfo = ApplicationInfo(
-            applicationInfoConfigurationProperties.name,
-            ApplicationInfo.Framework(
-                    applicationInfoConfigurationProperties.framework.name,
-                    applicationInfoConfigurationProperties.framework.releaseYear.toInt()
-            ),
-            when (projection) {
-                Projection.DEFAULT -> null
-                Projection.FULL -> springBootServiceClient.getApplicationInfo()
-            }
+        applicationInfoConfigurationProperties.name,
+        ApplicationInfo.Framework(
+            applicationInfoConfigurationProperties.framework.name,
+            applicationInfoConfigurationProperties.framework.releaseYear.toInt()
+        ),
+        when (projection) {
+            Projection.DEFAULT -> null
+            Projection.FULL -> springBootServiceClient.getApplicationInfo()
+        }
     )
 }

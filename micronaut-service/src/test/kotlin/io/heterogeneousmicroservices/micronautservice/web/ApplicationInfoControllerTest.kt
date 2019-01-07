@@ -20,7 +20,8 @@ internal class ApplicationInfoControllerTest {
         @JvmStatic
         fun startServer() {
             server = ApplicationContext.run(EmbeddedServer::class.java)
-            client = server?.applicationContext?.createBean(HttpClient::class.java, server?.url) ?: throw IllegalStateException("Cannot get server instance")
+            client = server?.applicationContext?.createBean(HttpClient::class.java, server?.url) ?:
+                    throw IllegalStateException("Cannot get server instance")
         }
 
         @AfterAll
@@ -33,7 +34,8 @@ internal class ApplicationInfoControllerTest {
 
     @Test
     fun testGet() {
-        val responseBody: ApplicationInfo = client?.toBlocking()?.retrieve("/application-info", ApplicationInfo::class.java)
+        val responseBody: ApplicationInfo =
+            client?.toBlocking()?.retrieve("/application-info", ApplicationInfo::class.java)
                 ?: throw IllegalStateException("Http client must be not null")
         assertNotNull(responseBody)
         val expected = ApplicationInfo("micronaut-service", ApplicationInfo.Framework("Micronaut", 2018), null)

@@ -25,9 +25,9 @@ object HelidonServiceApplication {
         val serverConfig = ServerConfiguration.fromConfig(config.get("server"))
 
         val server: WebServer = WebServer
-                .builder(createRouting())
-                .configuration(serverConfig)
-                .build()
+            .builder(createRouting())
+            .configuration(serverConfig)
+            .build()
 
         server.start().thenAccept { ws ->
             log.info("Service running at: http://localhost:" + ws.port())
@@ -38,17 +38,17 @@ object HelidonServiceApplication {
 
     private fun createRouting(): Routing {
         return Routing.builder()
-                // add JSON support to all end-points
-                .register(JsonSupport.get())
-                .register("/application-info", ApplicationInfoService())
-                .error(NotFoundException::class.java) { req, res, ex ->
-                    log.error("NotFoundException:", ex)
-                    res.status(Http.Status.BAD_REQUEST_400).send()
-                }
-                .error(Exception::class.java) { req, res, ex ->
-                    log.error("Exception:", ex)
-                    res.status(Http.Status.INTERNAL_SERVER_ERROR_500).send()
-                }
-                .build()
+            // add JSON support to all end-points
+            .register(JsonSupport.get())
+            .register("/application-info", ApplicationInfoService())
+            .error(NotFoundException::class.java) { req, res, ex ->
+                log.error("NotFoundException:", ex)
+                res.status(Http.Status.BAD_REQUEST_400).send()
+            }
+            .error(Exception::class.java) { req, res, ex ->
+                log.error("Exception:", ex)
+                res.status(Http.Status.INTERNAL_SERVER_ERROR_500).send()
+            }
+            .build()
     }
 }

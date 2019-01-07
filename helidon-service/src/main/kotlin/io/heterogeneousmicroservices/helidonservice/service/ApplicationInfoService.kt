@@ -18,30 +18,30 @@ class ApplicationInfoService : Service {
 
     override fun update(rules: Routing.Rules<out Routing.Rules<*>>) {
         rules
-                .get("/", Handler { request, response -> this.getApplicationInfoJsonObject(request, response) })
+            .get("/", Handler { request, response -> this.getApplicationInfoJsonObject(request, response) })
     }
 
     private fun getApplicationInfoJsonObject(request: ServerRequest, response: ServerResponse) {
         val projection = request.queryParams()
-                .first("projection")
-                .map { Projection.valueOf(it.toUpperCase()) }
-                .orElse(Projection.DEFAULT)
+            .first("projection")
+            .map { Projection.valueOf(it.toUpperCase()) }
+            .orElse(Projection.DEFAULT)
 
         response
-                .status(Http.ResponseStatus.from(200))
-                .send<JsonObject>(applicationInfoJsonService.getJsonObjectBuilder(this.get(projection)).build())
+            .status(Http.ResponseStatus.from(200))
+            .send<JsonObject>(applicationInfoJsonService.getJsonObjectBuilder(this.get(projection)).build())
     }
 
     private fun get(projection: Projection): ApplicationInfo = ApplicationInfo(
-            applicationInfoProperties.name,
-            ApplicationInfo.Framework(
-                    applicationInfoProperties.frameworkName,
-                    applicationInfoProperties.frameworkReleaseDate
-            ),
-            when (projection) {
-                Projection.DEFAULT -> null
-                // todo implement
-                Projection.FULL -> null
-            }
+        applicationInfoProperties.name,
+        ApplicationInfo.Framework(
+            applicationInfoProperties.frameworkName,
+            applicationInfoProperties.frameworkReleaseDate
+        ),
+        when (projection) {
+            Projection.DEFAULT -> null
+            // todo implement
+            Projection.FULL -> null
+        }
     )
 }

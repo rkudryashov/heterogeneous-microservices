@@ -21,19 +21,21 @@ internal class ApplicationInfoControllerTest {
     @Test
     fun testGet() {
         webTestClient
-                .get().uri("/application-info")
-                .exchange()
-                .expectHeader().contentType(MediaType.APPLICATION_JSON_UTF8)
-                .expectStatus().isOk
-                .expectBody(ApplicationInfo::class.java)
-                .returnResult().apply {
-                    MatcherAssert.assertThat(this.responseBody, Matchers.equalTo(
-                            ApplicationInfo(
-                                    "spring-boot-service",
-                                    ApplicationInfo.Framework("Spring Boot", 2014),
-                                    null
-                            )
-                    ))
-                }
+            .get().uri("/application-info")
+            .exchange()
+            .expectHeader().contentType(MediaType.APPLICATION_JSON_UTF8)
+            .expectStatus().isOk
+            .expectBody(ApplicationInfo::class.java)
+            .returnResult().apply {
+                MatcherAssert.assertThat(
+                    this.responseBody, Matchers.equalTo(
+                        ApplicationInfo(
+                            "spring-boot-service",
+                            ApplicationInfo.Framework("Spring Boot", 2014),
+                            null
+                        )
+                    )
+                )
+            }
     }
 }

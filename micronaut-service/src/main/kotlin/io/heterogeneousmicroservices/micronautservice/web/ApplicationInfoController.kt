@@ -8,12 +8,12 @@ import io.micronaut.http.annotation.Controller
 import io.micronaut.http.annotation.Get
 
 @Controller(
-        value = "/application-info",
-        consumes = [MediaType.APPLICATION_JSON],
-        produces = [MediaType.APPLICATION_JSON]
+    value = "/application-info",
+    consumes = [MediaType.APPLICATION_JSON],
+    produces = [MediaType.APPLICATION_JSON]
 )
 class ApplicationInfoController(
-        private val applicationInfoService: ApplicationInfoService
+    private val applicationInfoService: ApplicationInfoService
 ) {
 
     @Get
