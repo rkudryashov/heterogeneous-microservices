@@ -1,8 +1,9 @@
-package io.heterogeneousmicroservices.ktorservice
+package io.heterogeneousmicroservices.ktorservice.module
 
 import com.orbitz.consul.Consul
 import com.orbitz.consul.model.agent.ImmutableRegistration
 import com.typesafe.config.ConfigFactory
+import com.typesafe.config.ConfigUtil
 import io.heterogeneousmicroservices.ktorservice.config.ApplicationInfoProperties
 import io.heterogeneousmicroservices.ktorservice.model.Projection
 import io.heterogeneousmicroservices.ktorservice.service.ApplicationInfoService
@@ -24,7 +25,7 @@ import org.koin.ktor.ext.inject
 import org.koin.standalone.StandAloneContext.startKoin
 
 private val ktorDeploymentConfig: ApplicationConfig =
-    HoconApplicationConfig(ConfigFactory.load().getConfig("ktor").getConfig("deployment"))
+    HoconApplicationConfig(ConfigFactory.load().getConfig(ConfigUtil.joinPath("ktor", "deployment")))
 private val port: Int = ktorDeploymentConfig.property("port").getString().toInt()
 
 private val applicationContext = module {
@@ -37,7 +38,7 @@ fun Application.module() {
     startKoin(listOf(applicationContext))
     val applicationInfoService: ApplicationInfoService by inject()
     val serviceName = applicationInfoService.get(Projection.DEFAULT).name
-    registerInConsul(serviceName)
+    if (!isTest()) registerInConsul(serviceName)
 
     install(DefaultHeaders)
     install(Compression)
@@ -57,7 +58,7 @@ fun Application.module() {
 private fun registerInConsul(serviceName: String) {
     val consulClient = Consul.builder().withUrl("http://localhost:8500").build()
     val service = ImmutableRegistration.builder()
-        .id("$serviceName-${port}")
+        .id("$serviceName-$port")
         .name(serviceName)
         .address("localhost")
         .port(port)
@@ -65,3 +66,6 @@ private fun registerInConsul(serviceName: String) {
 
     consulClient.agentClient().register(service)
 }
+
+private fun Application.isTest(): Boolean =
+    environment.config.propertyOrNull("ktor.deployment.environment")?.getString().equals("test")
