@@ -56,7 +56,6 @@ fun Application.module() {
 }
 
 private fun registerInConsul(serviceName: String) {
-    val consulClient = Consul.builder().withUrl("http://localhost:8500").build()
     val service = ImmutableRegistration.builder()
         .id("$serviceName-$port")
         .name(serviceName)
@@ -64,6 +63,7 @@ private fun registerInConsul(serviceName: String) {
         .port(port)
         .build()
 
+    val consulClient = Consul.builder().withUrl("http://localhost:8500").build()
     consulClient.agentClient().register(service)
 }
 

@@ -3,7 +3,7 @@ spring:
     name: spring-boot-service
 
 server:
-  port: 8085
+  port: 8084
 
 application-info:
   name: ${spring.application.name}

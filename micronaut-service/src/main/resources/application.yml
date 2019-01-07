@@ -2,7 +2,7 @@ micronaut:
   application:
     name: micronaut-service
   server:
-    port: 8084
+    port: 8083
 
 consul:
   client:
