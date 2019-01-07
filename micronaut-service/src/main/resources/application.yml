@@ -4,6 +4,11 @@ micronaut:
   server:
     port: 8084
 
+consul:
+  client:
+    registration:
+      enabled: true
+
 application-info:
   name: ${micronaut.application.name}
   framework:

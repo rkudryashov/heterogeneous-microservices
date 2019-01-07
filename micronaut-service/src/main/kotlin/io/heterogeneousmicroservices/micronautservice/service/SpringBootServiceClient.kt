@@ -4,7 +4,7 @@ import io.heterogeneousmicroservices.micronautservice.model.ApplicationInfo
 import io.micronaut.http.annotation.Get
 import io.micronaut.http.client.annotation.Client
 
-@Client("http://localhost:8080")
+@Client(id = "spring-boot-service")
 interface SpringBootServiceClient {
 
     @Get("/application-info")
