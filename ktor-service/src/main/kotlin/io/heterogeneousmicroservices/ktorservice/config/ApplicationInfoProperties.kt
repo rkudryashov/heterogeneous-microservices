@@ -9,5 +9,5 @@ class ApplicationInfoProperties(
     private val frameworkConfig: ApplicationConfig = applicationInfoConfig.config("framework"),
     val name: String = applicationInfoConfig.property("name").getString(),
     val frameworkName: String = frameworkConfig.property("name").getString(),
-    val frameworkReleaseYear: Int = frameworkConfig.property("releaseYear").getString().toInt()
+    val frameworkReleaseYear: Int = frameworkConfig.property("release-year").getString().toInt()
 )
