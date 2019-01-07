@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 
 val micronautVersion: String by project
 val jacksonModuleKotlinVersion: String by project
@@ -12,12 +13,16 @@ buildscript {
 }
 
 plugins {
+    application
+    id("com.github.johnrengelman.shadow")
     kotlin("jvm")
     kotlin("kapt")
-    kotlin("plugin.allopen")
     id("io.spring.dependency-management")
-    id("com.github.johnrengelman.shadow")
     jacoco
+}
+
+application {
+    mainClassName = "io.heterogeneousmicroservices.micronautservice.MicronautServiceApplication"
 }
 
 repositories {
@@ -28,7 +33,7 @@ dependencies {
     kapt("io.micronaut:micronaut-inject-java")
     kapt("io.micronaut:micronaut-validation")
     implementation(kotlin("stdlib-jdk8"))
-//    implementation(kotlin("reflect"))
+    implementation(kotlin("reflect"))
     implementation("javax.annotation:javax.annotation-api")
     implementation("io.micronaut:micronaut-runtime")
     implementation("io.micronaut:micronaut-http-client")
@@ -55,5 +60,8 @@ tasks {
             jvmTarget = "1.8"
             freeCompilerArgs = listOf("-Xjsr305=strict")
         }
+    }
+    withType<ShadowJar> {
+        mergeServiceFiles()
     }
 }
