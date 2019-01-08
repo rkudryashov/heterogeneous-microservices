@@ -29,16 +29,21 @@ private val ktorDeploymentConfig: ApplicationConfig =
 private val port: Int = ktorDeploymentConfig.property("port").getString().toInt()
 
 private val applicationContext = module {
-    single { ApplicationInfoService(get()) }
+    single { ApplicationInfoService(get(), get()) }
     single { ApplicationInfoProperties() }
+    single { Consul.builder().withUrl("http://localhost:8500").build() }
 }
 
 // referenced in application.conf
 fun Application.module() {
     startKoin(listOf(applicationContext))
+
     val applicationInfoService: ApplicationInfoService by inject()
-    val serviceName = applicationInfoService.get(Projection.DEFAULT).name
-    if (!isTest()) registerInConsul(serviceName)
+
+    if (!isTest()) {
+        val consulClient: Consul by inject()
+        registerInConsul(applicationInfoService.get(Projection.DEFAULT).name, consulClient)
+    }
 
     install(DefaultHeaders)
     install(Compression)
@@ -57,17 +62,15 @@ fun Application.module() {
     }
 }
 
-private fun registerInConsul(serviceName: String) {
-    val service = ImmutableRegistration.builder()
-        .id("$serviceName-$port")
-        .name(serviceName)
-        .address("localhost")
-        .port(port)
-        .build()
+private fun registerInConsul(serviceName: String, consulClient: Consul) =
+    consulClient.agentClient().register(buildConsulRegistration(serviceName))
 
-    val consulClient = Consul.builder().withUrl("http://localhost:8500").build()
-    consulClient.agentClient().register(service)
-}
+private fun buildConsulRegistration(serviceName: String) = ImmutableRegistration.builder()
+    .id("$serviceName-$port")
+    .name(serviceName)
+    .address("localhost")
+    .port(port)
+    .build()
 
 private fun Application.isTest(): Boolean =
     environment.config.propertyOrNull("ktor.deployment.environment")?.getString().equals("test")
