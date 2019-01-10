@@ -13,6 +13,7 @@ class ApplicationInfoProperties {
         const val followingApplicationKey = "followingApplication"
     }
 
+    // todo move to constructor
     private val applicationInfoConfig = Config.create().get(applicationInfoKey)
     private val frameworkConfig = applicationInfoConfig.get(frameworkKey)
 

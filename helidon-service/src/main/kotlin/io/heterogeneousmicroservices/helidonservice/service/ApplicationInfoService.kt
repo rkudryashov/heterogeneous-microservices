@@ -13,7 +13,7 @@ import javax.json.JsonObject
 
 class ApplicationInfoService : Service {
 
-    private val applicationInfoProperties = ApplicationInfoProperties()
+    val applicationInfoProperties = ApplicationInfoProperties()
     private val applicationInfoJsonService = ApplicationInfoJsonService()
 
     override fun update(rules: Routing.Rules<out Routing.Rules<*>>) {

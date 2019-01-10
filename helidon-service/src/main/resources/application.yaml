@@ -2,6 +2,8 @@
 # todo implement service discovery
 # todo implement declarative client
 # todo process objects with json-p
+# todo fix test - disable consul
+# todo move to .conf
 server:
   port: 8081
 

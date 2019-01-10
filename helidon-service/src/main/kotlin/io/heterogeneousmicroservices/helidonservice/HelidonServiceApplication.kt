@@ -1,5 +1,7 @@
 package io.heterogeneousmicroservices.helidonservice
 
+import com.orbitz.consul.Consul
+import com.orbitz.consul.model.agent.ImmutableRegistration
 import io.helidon.common.http.Http
 import io.helidon.config.Config
 import io.helidon.webserver.NotFoundException
@@ -13,6 +15,8 @@ import org.slf4j.LoggerFactory
 object HelidonServiceApplication {
 
     private val log = LoggerFactory.getLogger(this::class.java)
+    private val applicationInfoService = ApplicationInfoService()
+    private val consulClient = Consul.builder().withUrl("http://localhost:8500").build()
 
     @JvmStatic
     fun main(args: Array<String>) {
@@ -31,6 +35,8 @@ object HelidonServiceApplication {
 
         server.start().thenAccept { ws ->
             log.info("Service running at: http://localhost:" + ws.port())
+            val serviceName = applicationInfoService.applicationInfoProperties.name
+            registerInConsul(serviceName, ws.port())
         }
 
         return server
@@ -40,7 +46,7 @@ object HelidonServiceApplication {
         return Routing.builder()
             // add JSON support to all end-points
             .register(JsonSupport.get())
-            .register("/application-info", ApplicationInfoService())
+            .register("/application-info", applicationInfoService)
             .error(NotFoundException::class.java) { req, res, ex ->
                 log.error("NotFoundException:", ex)
                 res.status(Http.Status.BAD_REQUEST_400).send()
@@ -51,4 +57,14 @@ object HelidonServiceApplication {
             }
             .build()
     }
+
+    private fun registerInConsul(serviceName: String, port: Int) =
+        consulClient.agentClient().register(buildConsulRegistration(serviceName, port))
+
+    private fun buildConsulRegistration(serviceName: String, port: Int) = ImmutableRegistration.builder()
+        .id("$serviceName-$port")
+        .name(serviceName)
+        .address("localhost")
+        .port(port)
+        .build()
 }
