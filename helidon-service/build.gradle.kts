@@ -26,7 +26,7 @@ dependencies {
     implementation(kotlin("stdlib-jdk8"))
     implementation(kotlin("reflect"))
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinCoroutinesVersion")
-    implementation("io.helidon.webserver:helidon-webserver-bundle")
+    implementation("io.helidon.microprofile.bundles:helidon-microprofile-1.2:$helidonVersion")
     implementation("io.helidon.config:helidon-config-yaml")
     implementation("com.orbitz.consul:consul-client:$consulClientVersion")
     implementation("ch.qos.logback:logback-classic:$logbackVersion")
