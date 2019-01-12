@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service
 @Service
 class ApplicationInfoService(
     private val applicationInfoConfigurationProperties: ApplicationInfoConfigurationProperties,
-    private val ktorServiceClient: KtorServiceClient
+    private val helidonServiceClient: HelidonServiceClient
 ) {
 
     fun get(projection: Projection): ApplicationInfo = ApplicationInfo(
@@ -19,7 +19,7 @@ class ApplicationInfoService(
         ),
         when (projection) {
             Projection.DEFAULT -> null
-            Projection.FULL -> ktorServiceClient.getApplicationInfo()
+            Projection.FULL -> helidonServiceClient.getApplicationInfo()
         }
     )
 }
