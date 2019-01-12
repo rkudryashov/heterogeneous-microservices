@@ -11,10 +11,11 @@ import io.heterogeneousmicroservices.helidonservice.model.ApplicationInfo
 import io.heterogeneousmicroservices.helidonservice.model.Projection
 import javax.json.JsonObject
 
-class ApplicationInfoService : Service {
+class ApplicationInfoService(
+    private val applicationInfoProperties: ApplicationInfoProperties,
+    private val applicationInfoJsonService: ApplicationInfoJsonService
+) : Service {
 
-    val applicationInfoProperties = ApplicationInfoProperties()
-    private val applicationInfoJsonService = ApplicationInfoJsonService()
 
     override fun update(rules: Routing.Rules<out Routing.Rules<*>>) {
         rules
