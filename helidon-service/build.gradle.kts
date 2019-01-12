@@ -4,6 +4,7 @@ val helidonVersion: String by project
 val kotlinCoroutinesVersion: String by project
 val koinVersion: String by project
 val consulClientVersion: String by project
+val jacksonVersion: String by project
 val logbackVersion: String by project
 val junitVersion: String by project
 
@@ -38,6 +39,7 @@ dependencies {
     implementation("io.helidon.config:helidon-config-yaml")
     implementation("org.koin:koin-core:$koinVersion")
     implementation("com.orbitz.consul:consul-client:$consulClientVersion")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonVersion")
     implementation("ch.qos.logback:logback-classic:$logbackVersion")
     testImplementation("org.junit.jupiter:junit-jupiter-api:$junitVersion")
     testRuntime("org.junit.jupiter:junit-jupiter-engine:$junitVersion")

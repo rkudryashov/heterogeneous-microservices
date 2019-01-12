@@ -12,6 +12,7 @@ import io.helidon.webserver.json.JsonSupport
 import io.heterogeneousmicroservices.helidonservice.config.ApplicationInfoProperties
 import io.heterogeneousmicroservices.helidonservice.service.ApplicationInfoJsonService
 import io.heterogeneousmicroservices.helidonservice.service.ApplicationInfoService
+import io.heterogeneousmicroservices.helidonservice.service.KtorServiceClient
 import org.koin.dsl.module.module
 import org.koin.standalone.KoinComponent
 import org.koin.standalone.StandAloneContext.startKoin
@@ -23,9 +24,10 @@ object HelidonServiceApplication : KoinComponent {
     private val log = LoggerFactory.getLogger(this::class.java)
 
     private val applicationContext = module {
-        single { ApplicationInfoService(get(), get()) }
+        single { ApplicationInfoService(get(), get(), get()) }
         single { ApplicationInfoProperties() }
         single { ApplicationInfoJsonService() }
+        single { KtorServiceClient() }
         single { Consul.builder().withUrl("http://localhost:8500").build() }
     }
 

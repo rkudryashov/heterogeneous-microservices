@@ -2,7 +2,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 
 val micronautVersion: String by project
-val jacksonModuleKotlinVersion: String by project
+val jacksonVersion: String by project
 val logbackVersion: String by project
 val junitVersion: String by project
 
@@ -41,7 +41,7 @@ dependencies {
     runtime("io.micronaut:micronaut-discovery-client")
     kaptTest("io.micronaut:micronaut-inject-java")
     runtime("ch.qos.logback:logback-classic:$logbackVersion")
-    runtime("com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonModuleKotlinVersion")
+    runtime("com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonVersion")
     testImplementation("org.junit.jupiter:junit-jupiter-api:$junitVersion")
     testRuntime("org.junit.jupiter:junit-jupiter-engine:$junitVersion")
 }

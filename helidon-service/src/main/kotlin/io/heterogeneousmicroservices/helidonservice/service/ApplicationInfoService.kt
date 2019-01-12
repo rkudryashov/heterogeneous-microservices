@@ -13,7 +13,8 @@ import javax.json.JsonObject
 
 class ApplicationInfoService(
     private val applicationInfoProperties: ApplicationInfoProperties,
-    private val applicationInfoJsonService: ApplicationInfoJsonService
+    private val applicationInfoJsonService: ApplicationInfoJsonService,
+    private val ktorServiceClient: KtorServiceClient
 ) : Service {
 
 
@@ -41,8 +42,7 @@ class ApplicationInfoService(
         ),
         when (projection) {
             Projection.DEFAULT -> null
-            // todo implement
-            Projection.FULL -> null
+            Projection.FULL -> ktorServiceClient.getApplicationInfo()
         }
     )
 }
