@@ -27,7 +27,7 @@ object HelidonServiceApplication : KoinComponent {
         single { ApplicationInfoService(get(), get(), get()) }
         single { ApplicationInfoProperties() }
         single { ApplicationInfoJsonService() }
-        single { KtorServiceClient() }
+        single { KtorServiceClient(get()) }
         single { Consul.builder().withUrl("http://localhost:8500").build() }
     }
 

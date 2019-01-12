@@ -14,7 +14,7 @@ class ConsulFeature(private val consulClient: Consul) {
 
     companion object Feature : HttpClientFeature<Config, ConsulFeature> {
 
-        var instanceIndex: Int = 0
+        var serviceInstanceIndex: Int = 0
 
         override val key = AttributeKey<ConsulFeature>("ConsulFeature")
 
@@ -25,12 +25,12 @@ class ConsulFeature(private val consulClient: Consul) {
                 val serviceName = context.url.host
                 val serviceInstances =
                     feature.consulClient.healthClient().getHealthyServiceInstances(serviceName).response
-                val selectedInstance = serviceInstances[instanceIndex]
+                val selectedInstance = serviceInstances[serviceInstanceIndex]
                 context.url.apply {
                     host = selectedInstance.service.address
                     port = selectedInstance.service.port
                 }
-                instanceIndex = (instanceIndex + 1) % serviceInstances.size
+                serviceInstanceIndex = (serviceInstanceIndex + 1) % serviceInstances.size
             }
         }
     }
