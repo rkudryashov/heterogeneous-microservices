@@ -10,5 +10,5 @@ server:
 application-info:
   name: helidon-service
   framework:
-    name: Helidon MP
+    name: Helidon SE
     release-year: 2019

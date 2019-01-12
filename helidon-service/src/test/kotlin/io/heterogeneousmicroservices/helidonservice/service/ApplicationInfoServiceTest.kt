@@ -57,7 +57,7 @@ internal class ApplicationInfoServiceTest {
         val expectedJsonObject = applicationInfoJsonService.getJsonObjectBuilder(
             ApplicationInfo(
                 "helidon-service",
-                ApplicationInfo.Framework("Helidon MP", 2019), null
+                ApplicationInfo.Framework("Helidon SE", 2019), null
             )
         )
             .build()
