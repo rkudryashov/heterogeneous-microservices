@@ -15,7 +15,7 @@ class ApplicationInfoJsonService {
             .add(
                 ApplicationInfoProperties.frameworkKey, jsonBuilderFactory.createObjectBuilder()
                     .add(ApplicationInfoProperties.frameworkNameKey, applicationInfo.framework.name)
-                    .add(ApplicationInfoProperties.frameworkReleaseYearKey, applicationInfo.framework.releaseYear)
+                    .add(ApplicationInfoProperties.frameworkReleaseYearJsonKey, applicationInfo.framework.releaseYear)
             ).also { builder ->
                 applicationInfo.followingApplication?.let {
                     builder.add(ApplicationInfoProperties.followingApplicationKey, getJsonObjectBuilder(it))
