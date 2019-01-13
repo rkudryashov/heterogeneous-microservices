@@ -9,7 +9,7 @@ import io.ktor.util.AttributeKey
 class ConsulFeature(private val consulClient: Consul) {
 
     class Config {
-        var consulClient: Consul = Consul.builder().withUrl("http://localhost:8500").build()
+        lateinit var consulClient: Consul
     }
 
     companion object Feature : HttpClientFeature<Config, ConsulFeature> {

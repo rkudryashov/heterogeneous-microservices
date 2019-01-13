@@ -4,7 +4,6 @@ import com.orbitz.consul.Consul
 import com.orbitz.consul.model.agent.ImmutableRegistration
 import com.typesafe.config.ConfigFactory
 import com.typesafe.config.ConfigUtil
-import io.heterogeneousmicroservices.ktorservice.config.ApplicationInfoProperties
 import io.heterogeneousmicroservices.ktorservice.model.Projection
 import io.heterogeneousmicroservices.ktorservice.service.ApplicationInfoService
 import io.ktor.application.Application
@@ -20,24 +19,14 @@ import io.ktor.jackson.jackson
 import io.ktor.response.respond
 import io.ktor.routing.get
 import io.ktor.routing.routing
-import org.koin.dsl.module.module
 import org.koin.ktor.ext.inject
-import org.koin.standalone.StandAloneContext.startKoin
 
 private val ktorDeploymentConfig: ApplicationConfig =
     HoconApplicationConfig(ConfigFactory.load().getConfig(ConfigUtil.joinPath("ktor", "deployment")))
 private val port: Int = ktorDeploymentConfig.property("port").getString().toInt()
 
-private val applicationContext = module {
-    single { ApplicationInfoService(get(), get()) }
-    single { ApplicationInfoProperties() }
-    single { Consul.builder().withUrl("http://localhost:8500").build() }
-}
-
 // referenced in application.conf
 fun Application.module() {
-    startKoin(listOf(applicationContext))
-
     val applicationInfoService: ApplicationInfoService by inject()
 
     if (!isTest()) {
