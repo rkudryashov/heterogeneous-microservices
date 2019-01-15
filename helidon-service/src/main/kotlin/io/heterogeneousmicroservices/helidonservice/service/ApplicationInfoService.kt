@@ -17,10 +17,8 @@ class ApplicationInfoService(
     private val ktorServiceClient: KtorServiceClient
 ) : Service {
 
-
-    override fun update(rules: Routing.Rules<out Routing.Rules<*>>) {
-        rules
-            .get("/", Handler { request, response -> this.getApplicationInfoJsonObject(request, response) })
+    override fun update(rules: Routing.Rules) {
+        rules.get("/", Handler { request, response -> this.getApplicationInfoJsonObject(request, response) })
     }
 
     private fun getApplicationInfoJsonObject(request: ServerRequest, response: ServerResponse) {
@@ -30,7 +28,7 @@ class ApplicationInfoService(
             .orElse(Projection.DEFAULT)
 
         response
-            .status(Http.ResponseStatus.from(200))
+            .status(Http.ResponseStatus.create(200))
             .send<JsonObject>(applicationInfoJsonService.getJsonObjectBuilder(this.get(projection)).build())
     }
 

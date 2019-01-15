@@ -1,6 +1,7 @@
 package io.heterogeneousmicroservices.helidonservice.config
 
 import io.helidon.config.Config
+import io.heterogeneousmicroservices.helidonservice.model.ApplicationInfo
 
 class ApplicationInfoProperties {
 
@@ -14,11 +15,19 @@ class ApplicationInfoProperties {
         const val followingApplicationKey = "followingApplication"
     }
 
-    // todo move to constructor
-    private val applicationInfoConfig = Config.create().get(applicationInfoKey)
-    private val frameworkConfig = applicationInfoConfig.get(frameworkKey)
+    private val applicationInfo = Config.create()
+        .get(applicationInfoKey).`as` {
+            ApplicationInfo(
+                it[nameKey].asString().get(),
+                ApplicationInfo.Framework(
+                    it[frameworkKey][frameworkNameKey].asString().get(),
+                    it[frameworkKey][frameworkReleaseYearKey].asInt().get()
+                ),
+                null
+            )
+        }.orElseThrow { IllegalStateException("Cannot parse config") }
 
-    val name = applicationInfoConfig[nameKey].asString()
-    val frameworkName = frameworkConfig[frameworkNameKey].asString()
-    val frameworkReleaseDate = frameworkConfig[frameworkReleaseYearKey].asInt()
+    val name = applicationInfo.name
+    val frameworkName = applicationInfo.framework.name
+    val frameworkReleaseDate = applicationInfo.framework.releaseYear
 }

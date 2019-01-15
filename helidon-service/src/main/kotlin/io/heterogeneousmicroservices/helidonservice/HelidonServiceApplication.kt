@@ -40,11 +40,11 @@ object HelidonServiceApplication : KoinComponent {
     fun startServer(): WebServer {
         // read config from application.yaml
         val config = Config.create()
-        val serverConfig = ServerConfiguration.fromConfig(config.get("server"))
+        val serverConfig = ServerConfiguration.create(config.get("server"))
 
         val server: WebServer = WebServer
             .builder(createRouting())
-            .configuration(serverConfig)
+            .config(serverConfig)
             .build()
 
         server.start().thenAccept { ws ->
@@ -61,7 +61,7 @@ object HelidonServiceApplication : KoinComponent {
         val applicationInfoService: ApplicationInfoService by inject()
         return Routing.builder()
             // add JSON support to all end-points
-            .register(JsonSupport.get())
+            .register(JsonSupport.create())
             .register("/application-info", applicationInfoService)
             .error(NotFoundException::class.java) { req, res, ex ->
                 log.error("NotFoundException:", ex)
