@@ -27,9 +27,9 @@ val applicationContext = module {
     single { Consul.builder().withUrl("http://localhost:8500").build() }
 }
 
-object HelidonServiceApplication : KoinComponent {
+private val log = LoggerFactory.getLogger(HelidonServiceApplication::class.java)
 
-    private val log = LoggerFactory.getLogger(this::class.java)
+object HelidonServiceApplication : KoinComponent {
 
     @JvmStatic
     fun main(args: Array<String>) {
@@ -38,51 +38,55 @@ object HelidonServiceApplication : KoinComponent {
     }
 
     fun startServer(): WebServer {
-        // read config from application.yaml
-        val config = Config.create()
-        val serverConfig = ServerConfiguration.create(config.get("server"))
-
-        val server: WebServer = WebServer
-            .builder(createRouting())
-            .config(serverConfig)
-            .build()
-
-        server.start().thenAccept { ws ->
-            log.info("Service running at: http://localhost:" + ws.port())
-            val applicationInfoProperties: ApplicationInfoProperties by inject()
-            val serviceName = applicationInfoProperties.name
-            registerInConsul(serviceName, ws.port())
-        }
-
-        return server
-    }
-
-    private fun createRouting(): Routing {
         val applicationInfoService: ApplicationInfoService by inject()
-        return Routing.builder()
-            // add JSON support to all end-points
-            .register(JsonSupport.create())
-            .register("/application-info", applicationInfoService)
-            .error(NotFoundException::class.java) { req, res, ex ->
-                log.error("NotFoundException:", ex)
-                res.status(Http.Status.BAD_REQUEST_400).send()
-            }
-            .error(Exception::class.java) { req, res, ex ->
-                log.error("Exception:", ex)
-                res.status(Http.Status.INTERNAL_SERVER_ERROR_500).send()
-            }
-            .build()
-    }
-
-    private fun registerInConsul(serviceName: String, port: Int) {
         val consulClient: Consul by inject()
-        consulClient.agentClient().register(buildConsulRegistration(serviceName, port))
+        val applicationInfoProperties: ApplicationInfoProperties by inject()
+        val serviceName = applicationInfoProperties.name
+
+        return startServer(applicationInfoService, consulClient, serviceName)
+    }
+}
+
+private fun startServer(
+    applicationInfoService: ApplicationInfoService,
+    consulClient: Consul,
+    serviceName: String
+): WebServer {
+    // read config from application.yaml
+    val config = Config.create()
+    val serverConfig = ServerConfiguration.create(config.get("server"))
+
+    val server: WebServer = WebServer
+        .builder(createRouting(applicationInfoService))
+        .config(serverConfig)
+        .build()
+
+    server.start().thenAccept { ws ->
+        log.info("Service running at: http://localhost:" + ws.port())
+        // register in Consul
+        consulClient.agentClient().register(buildConsulRegistration(serviceName, ws.port()))
     }
 
-    private fun buildConsulRegistration(serviceName: String, port: Int) = ImmutableRegistration.builder()
-        .id("$serviceName-$port")
-        .name(serviceName)
-        .address("localhost")
-        .port(port)
-        .build()
+    return server
 }
+
+private fun createRouting(applicationInfoService: ApplicationInfoService) = Routing.builder()
+    // add JSON support to all end-points
+    .register(JsonSupport.create())
+    .register("/application-info", applicationInfoService)
+    .error(NotFoundException::class.java) { req, res, ex ->
+        log.error("NotFoundException:", ex)
+        res.status(Http.Status.BAD_REQUEST_400).send()
+    }
+    .error(Exception::class.java) { req, res, ex ->
+        log.error("Exception:", ex)
+        res.status(Http.Status.INTERNAL_SERVER_ERROR_500).send()
+    }
+    .build()
+
+private fun buildConsulRegistration(serviceName: String, port: Int) = ImmutableRegistration.builder()
+    .id("$serviceName-$port")
+    .name(serviceName)
+    .address("localhost")
+    .port(port)
+    .build()
