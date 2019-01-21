@@ -19,17 +19,17 @@ import org.koin.standalone.StandAloneContext.startKoin
 import org.koin.standalone.inject
 import org.slf4j.LoggerFactory
 
+val applicationContext = module {
+    single { ApplicationInfoService(get(), get(), get()) }
+    single { ApplicationInfoProperties() }
+    single { ApplicationInfoJsonService() }
+    single { KtorServiceClient(get()) }
+    single { Consul.builder().withUrl("http://localhost:8500").build() }
+}
+
 object HelidonServiceApplication : KoinComponent {
 
     private val log = LoggerFactory.getLogger(this::class.java)
-
-    private val applicationContext = module {
-        single { ApplicationInfoService(get(), get(), get()) }
-        single { ApplicationInfoProperties() }
-        single { ApplicationInfoJsonService() }
-        single { KtorServiceClient(get()) }
-        single { Consul.builder().withUrl("http://localhost:8500").build() }
-    }
 
     @JvmStatic
     fun main(args: Array<String>) {

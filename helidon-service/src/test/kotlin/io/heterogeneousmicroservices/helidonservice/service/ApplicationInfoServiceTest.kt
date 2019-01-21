@@ -1,50 +1,54 @@
 package io.heterogeneousmicroservices.helidonservice.service
 
+import com.orbitz.consul.Consul
 import io.helidon.webserver.WebServer
 import io.heterogeneousmicroservices.helidonservice.HelidonServiceApplication
+import io.heterogeneousmicroservices.helidonservice.applicationContext
 import io.heterogeneousmicroservices.helidonservice.model.ApplicationInfo
-import org.junit.jupiter.api.AfterAll
+import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.BeforeAll
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import org.koin.standalone.StandAloneContext.startKoin
+import org.koin.standalone.inject
+import org.koin.test.AutoCloseKoinTest
+import org.koin.test.declareMock
 import java.net.HttpURLConnection
 import java.net.URL
 import java.util.concurrent.TimeUnit
 import javax.json.Json
 
-internal class ApplicationInfoServiceTest {
+internal class ApplicationInfoServiceTest : AutoCloseKoinTest() {
 
-    companion object {
-        private var server: WebServer? = null
+    private var server: WebServer? = null
+    private val applicationInfoJsonService: ApplicationInfoJsonService by inject()
 
-        @BeforeAll
-        @JvmStatic
-        // todo rewrite using coroutines
-        fun startServer() {
-            val startTimeout = 4000L // 4 seconds should be enough
-            val startTime = System.currentTimeMillis()
+    // todo rewrite using coroutines
+    @BeforeEach
+    fun beforeEach() {
+        startKoin(listOf(applicationContext))
+        this.declareMock<Consul>()
 
-            server = HelidonServiceApplication.startServer()
-            server?.let {
-                while (!it.isRunning) {
-                    Thread.sleep(100)
-                    if (System.currentTimeMillis() - startTime > startTimeout) {
-                        throw IllegalStateException("Webserver haven't been started")
-                    }
+        val startTimeout = 5000L // 5 seconds should be enough
+        val startTime = System.currentTimeMillis()
+
+        server = HelidonServiceApplication.startServer()
+        server?.let {
+            while (!it.isRunning) {
+                Thread.sleep(100)
+                if (System.currentTimeMillis() - startTime > startTimeout) {
+                    throw IllegalStateException("Webserver haven't been started")
                 }
             }
         }
-
-        @AfterAll
-        @JvmStatic
-        fun stopServer() {
-            server?.shutdown()
-                ?.toCompletableFuture()
-                ?.get(10, TimeUnit.SECONDS)
-        }
     }
 
-    private val applicationInfoJsonService = ApplicationInfoJsonService()
+    @AfterEach
+    fun afterEach() {
+        server?.shutdown()
+            ?.toCompletableFuture()
+            ?.get(10, TimeUnit.SECONDS)
+    }
 
     @Test
     fun testGet() {
@@ -55,12 +59,8 @@ internal class ApplicationInfoServiceTest {
         val jsonObject = jsonReader.readObject()
 
         val expectedJsonObject = applicationInfoJsonService.getJsonObjectBuilder(
-            ApplicationInfo(
-                "helidon-service",
-                ApplicationInfo.Framework("Helidon SE", 2019), null
-            )
-        )
-            .build()
+            ApplicationInfo("helidon-service", ApplicationInfo.Framework("Helidon SE", 2019), null)
+        ).build()
 
         assertEquals(expectedJsonObject, jsonObject)
     }

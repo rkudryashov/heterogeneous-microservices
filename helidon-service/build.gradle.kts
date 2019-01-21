@@ -41,6 +41,7 @@ dependencies {
     implementation("com.orbitz.consul:consul-client:$consulClientVersion")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonVersion")
     implementation("ch.qos.logback:logback-classic:$logbackVersion")
+    testImplementation("org.koin:koin-test:$koinVersion")
     testImplementation("org.junit.jupiter:junit-jupiter-api:$junitVersion")
     testRuntime("org.junit.jupiter:junit-jupiter-engine:$junitVersion")
 }
