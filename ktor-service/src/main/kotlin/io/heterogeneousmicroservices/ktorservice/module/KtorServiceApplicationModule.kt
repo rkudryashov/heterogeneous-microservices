@@ -38,6 +38,7 @@ fun Application.module() {
     install(Compression)
     install(CallLogging)
     install(ContentNegotiation) {
+        //todo need it?
         jackson {}
     }
 

@@ -1,4 +1,4 @@
-package io.heterogeneousmicroservices.micronautservice.web
+package io.heterogeneousmicroservices.micronautservice
 
 import io.heterogeneousmicroservices.micronautservice.model.ApplicationInfo
 import io.micronaut.context.ApplicationContext
@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Test
 
-internal class ApplicationInfoControllerTest {
+internal class MicronautServiceApplicationTest {
 
     companion object {
         private var server: EmbeddedServer? = null

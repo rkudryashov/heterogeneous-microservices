@@ -17,6 +17,7 @@ import org.koin.test.declareMock
 
 internal class KtorServiceApplicationTest : AutoCloseKoinTest() {
 
+    // todo remove read `env` property for test purpose
     @Test
     fun testGet(): Unit = withTestApplication(Application::module) {
         startKoin(listOf(applicationContext))

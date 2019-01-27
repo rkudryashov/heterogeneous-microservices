@@ -1,10 +1,9 @@
-package io.heterogeneousmicroservices.helidonservice.service
+package io.heterogeneousmicroservices.helidonservice
 
 import com.orbitz.consul.Consul
 import io.helidon.webserver.WebServer
-import io.heterogeneousmicroservices.helidonservice.HelidonServiceApplication
-import io.heterogeneousmicroservices.helidonservice.applicationContext
 import io.heterogeneousmicroservices.helidonservice.model.ApplicationInfo
+import io.heterogeneousmicroservices.helidonservice.service.ApplicationInfoJsonService
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
@@ -18,7 +17,7 @@ import java.net.URL
 import java.util.concurrent.TimeUnit
 import javax.json.Json
 
-internal class ApplicationInfoServiceTest : AutoCloseKoinTest() {
+internal class HelidonServiceApplicationTest : AutoCloseKoinTest() {
 
     private var server: WebServer? = null
     private val applicationInfoJsonService: ApplicationInfoJsonService by inject()

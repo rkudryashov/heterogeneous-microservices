@@ -19,6 +19,7 @@ import org.koin.standalone.StandAloneContext.startKoin
 import org.koin.standalone.inject
 import org.slf4j.LoggerFactory
 
+// todo rename in two projects
 val applicationContext = module {
     single { ApplicationInfoService(get(), get(), get()) }
     single { ApplicationInfoProperties() }

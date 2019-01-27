@@ -1,4 +1,4 @@
-package io.heterogeneousmicroservices.springbootservice.web
+package io.heterogeneousmicroservices.springbootservice
 
 import io.heterogeneousmicroservices.springbootservice.model.ApplicationInfo
 import org.hamcrest.MatcherAssert
@@ -13,7 +13,7 @@ import org.springframework.test.web.reactive.server.WebTestClient
 
 @ExtendWith(SpringExtension::class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-internal class ApplicationInfoControllerTest {
+internal class SpringBootServiceApplicationTest {
 
     @Autowired
     private lateinit var webTestClient: WebTestClient

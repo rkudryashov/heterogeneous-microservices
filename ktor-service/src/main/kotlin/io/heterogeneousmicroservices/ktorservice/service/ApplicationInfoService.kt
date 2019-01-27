@@ -44,6 +44,7 @@ class ApplicationInfoService(
         }
     )
 
+    // todo move to class
     private suspend fun getFollowingApplicationInfo(): ApplicationInfo {
         return httpClient.get("http://micronaut-service/application-info") {
             contentType(ContentType.Application.Json)
