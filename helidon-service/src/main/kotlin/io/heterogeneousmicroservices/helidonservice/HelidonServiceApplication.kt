@@ -4,11 +4,11 @@ import com.orbitz.consul.Consul
 import com.orbitz.consul.model.agent.ImmutableRegistration
 import io.helidon.common.http.Http
 import io.helidon.config.Config
+import io.helidon.media.jsonp.server.JsonSupport
 import io.helidon.webserver.NotFoundException
 import io.helidon.webserver.Routing
 import io.helidon.webserver.ServerConfiguration
 import io.helidon.webserver.WebServer
-import io.helidon.webserver.json.JsonSupport
 import io.heterogeneousmicroservices.helidonservice.config.ApplicationInfoProperties
 import io.heterogeneousmicroservices.helidonservice.service.ApplicationInfoJsonService
 import io.heterogeneousmicroservices.helidonservice.service.ApplicationInfoService
