@@ -18,4 +18,7 @@ class ApplicationInfoController(
 
     @Get
     fun get(projection: Projection?): ApplicationInfo = applicationInfoService.get(projection ?: Projection.DEFAULT)
+
+    @Get("/logo", produces = ["image/png"])
+    fun getLogo(): ByteArray = applicationInfoService.getLogo()
 }
