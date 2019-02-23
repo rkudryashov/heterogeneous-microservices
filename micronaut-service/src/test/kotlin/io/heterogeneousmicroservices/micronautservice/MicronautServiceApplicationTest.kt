@@ -5,13 +5,15 @@ import io.micronaut.context.ApplicationContext
 import io.micronaut.core.io.ResourceLoader
 import io.micronaut.core.io.ResourceResolver
 import io.micronaut.core.io.scan.ClassPathResourceLoader
+import io.micronaut.http.HttpResponse
+import io.micronaut.http.HttpStatus
+import io.micronaut.http.MediaType
 import io.micronaut.http.client.HttpClient
 import io.micronaut.runtime.server.EmbeddedServer
 import org.junit.jupiter.api.AfterAll
+import org.junit.jupiter.api.Assertions.assertArrayEquals
 import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.BeforeAll
-import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
 internal class MicronautServiceApplicationTest {
@@ -38,23 +40,25 @@ internal class MicronautServiceApplicationTest {
 
     @Test
     fun testGet() {
-        val responseBody: ApplicationInfo = client?.toBlocking()
-            ?.retrieve("/application-info", ApplicationInfo::class.java)
-            ?: throw IllegalStateException("Http client must be not null")
-        assertNotNull(responseBody)
+        val response: HttpResponse<ApplicationInfo> =
+            client!!.toBlocking().exchange("/application-info", ApplicationInfo::class.java)
+
+        assertEquals(HttpStatus.OK, response.status)
+        assertEquals(MediaType.APPLICATION_JSON, response.contentType.get().name)
         val expected = ApplicationInfo("micronaut-service", ApplicationInfo.Framework("Micronaut", 2018), null)
-        assertEquals(expected, responseBody)
+        assertEquals(expected, response.body.get())
     }
 
     @Test
-    @Disabled
     fun testGetLogo() {
-        val responseBody: ByteArray = client?.toBlocking()
-            ?.retrieve("/application-info/logo", ByteArray::class.java)
-            ?: throw IllegalStateException("Http client must be not null")
-        assertNotNull(responseBody)
+        val response: HttpResponse<ByteArray> =
+            client!!.toBlocking().exchange("/application-info/logo", ByteArray::class.java)
+
+        assertEquals(HttpStatus.OK, response.status)
+        // todo use image mediatype after update of micronaut version
+        assertEquals("image/png", response.contentType.get().name)
         val loader: ResourceLoader = ResourceResolver().getLoader(ClassPathResourceLoader::class.java).get()
         val expected = loader.getResource("classpath:logo.png").get().readBytes()
-        assertEquals(expected, responseBody)
+        assertArrayEquals(expected, response.body.get())
     }
 }

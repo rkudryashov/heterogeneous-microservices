@@ -61,13 +61,11 @@ internal class HelidonServiceApplicationTest : AutoCloseKoinTest() {
         assertEquals(200, connection.responseCode)
         assertEquals(MediaType.APPLICATION_JSON.toString(), connection.contentType)
 
-        val jsonReader = Json.createReader(connection.inputStream)
-        val jsonObject = jsonReader.readObject()
-
-        val expectedJsonObject = applicationInfoJsonService.getJsonObjectBuilder(
+        val expectedJson = applicationInfoJsonService.getJsonObjectBuilder(
             ApplicationInfo("helidon-service", ApplicationInfo.Framework("Helidon SE", 2019), null)
         ).build()
-        assertEquals(expectedJsonObject, jsonObject)
+        val actualJson = Json.createReader(connection.inputStream).readObject()
+        assertEquals(expectedJson, actualJson)
     }
 
     @Test
