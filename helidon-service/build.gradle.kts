@@ -36,6 +36,7 @@ dependencies {
     implementation(kotlin("reflect"))
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinCoroutinesVersion")
     implementation("io.helidon.bundles:helidon-bundles-webserver")
+    implementation("io.helidon.media.jackson:helidon-media-jackson-server")
     implementation("io.helidon.bundles:helidon-bundles-config")
     implementation("org.koin:koin-core:$koinVersion")
     implementation("com.orbitz.consul:consul-client:$consulClientVersion")

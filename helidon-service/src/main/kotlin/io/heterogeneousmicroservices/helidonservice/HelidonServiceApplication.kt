@@ -3,14 +3,16 @@ package io.heterogeneousmicroservices.helidonservice
 import com.orbitz.consul.Consul
 import com.orbitz.consul.model.agent.ImmutableRegistration
 import io.helidon.common.http.Http
+import io.helidon.common.http.MediaType
 import io.helidon.config.Config
-import io.helidon.media.jsonp.server.JsonSupport
+import io.helidon.media.jackson.server.JacksonSupport
+import io.helidon.webserver.Handler
 import io.helidon.webserver.NotFoundException
 import io.helidon.webserver.Routing
 import io.helidon.webserver.ServerConfiguration
 import io.helidon.webserver.WebServer
 import io.heterogeneousmicroservices.helidonservice.config.ApplicationInfoProperties
-import io.heterogeneousmicroservices.helidonservice.service.ApplicationInfoJsonService
+import io.heterogeneousmicroservices.helidonservice.model.Projection
 import io.heterogeneousmicroservices.helidonservice.service.ApplicationInfoService
 import io.heterogeneousmicroservices.helidonservice.service.KtorServiceClient
 import org.koin.dsl.module.module
@@ -21,9 +23,8 @@ import org.slf4j.LoggerFactory
 
 // todo rename in two projects
 val applicationContext = module {
-    single { ApplicationInfoService(get(), get(), get()) }
+    single { ApplicationInfoService(get(), get()) }
     single { ApplicationInfoProperties() }
-    single { ApplicationInfoJsonService() }
     single { KtorServiceClient(get()) }
     single { Consul.builder().withUrl("http://localhost:8500").build() }
 }
@@ -72,9 +73,23 @@ private fun startServer(
 }
 
 private fun createRouting(applicationInfoService: ApplicationInfoService) = Routing.builder()
-    // add JSON support to all end-points
-    .register(JsonSupport.create())
-    .register("/application-info", applicationInfoService)
+    .register(JacksonSupport.create())
+    .get("/application-info", Handler { req, res ->
+        val projection = req.queryParams()
+            .first("projection")
+            .map { Projection.valueOf(it.toUpperCase()) }
+            .orElse(Projection.DEFAULT)
+
+        res
+            .status(Http.ResponseStatus.create(200))
+            .send(applicationInfoService.get(projection))
+    })
+    .get("/application-info/logo", Handler { req, res ->
+        res.headers().contentType(MediaType.create("image", "png"))
+        res
+            .status(Http.ResponseStatus.create(200))
+            .send(applicationInfoService.getLogo())
+    })
     .error(NotFoundException::class.java) { req, res, ex ->
         log.error("NotFoundException:", ex)
         res.status(Http.Status.BAD_REQUEST_400).send()
