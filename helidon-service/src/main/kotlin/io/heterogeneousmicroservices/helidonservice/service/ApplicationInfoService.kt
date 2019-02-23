@@ -1,6 +1,8 @@
 package io.heterogeneousmicroservices.helidonservice.service
 
+import io.helidon.common.configurable.Resource
 import io.helidon.common.http.Http
+import io.helidon.common.http.MediaType
 import io.helidon.webserver.Handler
 import io.helidon.webserver.Routing
 import io.helidon.webserver.ServerRequest
@@ -19,6 +21,7 @@ class ApplicationInfoService(
 
     override fun update(rules: Routing.Rules) {
         rules.get("/", Handler { request, response -> this.getApplicationInfoJsonObject(request, response) })
+        rules.get("/logo", Handler { request, response -> this.getLogo(request, response) })
     }
 
     private fun getApplicationInfoJsonObject(request: ServerRequest, response: ServerResponse) {
@@ -43,4 +46,12 @@ class ApplicationInfoService(
             Projection.FULL -> ktorServiceClient.getApplicationInfo()
         }
     )
+
+    private fun getLogo(request: ServerRequest, response: ServerResponse) {
+        val logo = Resource.create("logo.png").bytes()
+        response.headers().contentType(MediaType.create("image", "png"))
+        response
+            .status(Http.ResponseStatus.create(200))
+            .send<ByteArray>(logo)
+    }
 }

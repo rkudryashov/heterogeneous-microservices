@@ -65,7 +65,7 @@ private fun startServer(
     server.start().thenAccept { ws ->
         log.info("Service running at: http://localhost:" + ws.port())
         // register in Consul
-        consulClient.agentClient().register(buildConsulRegistration(serviceName, ws.port()))
+        consulClient.agentClient().register(createConsulRegistration(serviceName, ws.port()))
     }
 
     return server
@@ -85,7 +85,7 @@ private fun createRouting(applicationInfoService: ApplicationInfoService) = Rout
     }
     .build()
 
-private fun buildConsulRegistration(serviceName: String, port: Int) = ImmutableRegistration.builder()
+private fun createConsulRegistration(serviceName: String, port: Int) = ImmutableRegistration.builder()
     .id("$serviceName-$port")
     .name(serviceName)
     .address("localhost")

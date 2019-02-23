@@ -1,14 +1,18 @@
 package io.heterogeneousmicroservices.helidonservice
 
 import com.orbitz.consul.Consul
+import io.helidon.common.configurable.Resource
+import io.helidon.common.http.MediaType
 import io.helidon.webserver.WebServer
 import io.heterogeneousmicroservices.helidonservice.model.ApplicationInfo
 import io.heterogeneousmicroservices.helidonservice.service.ApplicationInfoJsonService
 import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.Assertions.assertArrayEquals
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.koin.standalone.StandAloneContext.startKoin
+import org.koin.standalone.StandAloneContext.stopKoin
 import org.koin.standalone.inject
 import org.koin.test.AutoCloseKoinTest
 import org.koin.test.declareMock
@@ -23,6 +27,7 @@ internal class HelidonServiceApplicationTest : AutoCloseKoinTest() {
     private val applicationInfoJsonService: ApplicationInfoJsonService by inject()
 
     // todo rewrite using coroutines
+    // todo how to start server and koin once?
     @BeforeEach
     fun beforeEach() {
         startKoin(listOf(applicationContext))
@@ -47,12 +52,14 @@ internal class HelidonServiceApplicationTest : AutoCloseKoinTest() {
         server?.shutdown()
             ?.toCompletableFuture()
             ?.get(10, TimeUnit.SECONDS)
+        stopKoin()
     }
 
     @Test
     fun testGet() {
         val connection = getURLConnection("GET", "/application-info")
         assertEquals(200, connection.responseCode)
+        assertEquals(MediaType.APPLICATION_JSON.toString(), connection.contentType)
 
         val jsonReader = Json.createReader(connection.inputStream)
         val jsonObject = jsonReader.readObject()
@@ -60,8 +67,15 @@ internal class HelidonServiceApplicationTest : AutoCloseKoinTest() {
         val expectedJsonObject = applicationInfoJsonService.getJsonObjectBuilder(
             ApplicationInfo("helidon-service", ApplicationInfo.Framework("Helidon SE", 2019), null)
         ).build()
-
         assertEquals(expectedJsonObject, jsonObject)
+    }
+
+    @Test
+    fun testGetLogo() {
+        val connection = getURLConnection("GET", "/application-info/logo")
+        assertEquals(200, connection.responseCode)
+        assertEquals(MediaType.create("image", "png").toString(), connection.contentType)
+        assertArrayEquals(Resource.create("logo.png").bytes(), connection.inputStream.readBytes())
     }
 
     private fun getURLConnection(method: String, path: String): HttpURLConnection {
