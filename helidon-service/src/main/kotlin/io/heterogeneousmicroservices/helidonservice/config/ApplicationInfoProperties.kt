@@ -5,23 +5,13 @@ import io.heterogeneousmicroservices.helidonservice.model.ApplicationInfo
 
 class ApplicationInfoProperties {
 
-    companion object {
-        const val applicationInfoKey = "application-info"
-        const val nameKey = "name"
-        const val frameworkKey = "framework"
-        const val frameworkNameKey = "name"
-        const val frameworkReleaseYearKey = "release-year"
-        const val frameworkReleaseYearJsonKey = "releaseYear"
-        const val followingApplicationKey = "followingApplication"
-    }
-
     private val applicationInfo = Config.create()
-        .get(applicationInfoKey).`as` {
+        .get("application-info").`as` {
             ApplicationInfo(
-                it[nameKey].asString().get(),
+                it["name"].asString().get(),
                 ApplicationInfo.Framework(
-                    it[frameworkKey][frameworkNameKey].asString().get(),
-                    it[frameworkKey][frameworkReleaseYearKey].asInt().get()
+                    it["framework"]["name"].asString().get(),
+                    it["framework"]["release-year"].asInt().get()
                 ),
                 null
             )

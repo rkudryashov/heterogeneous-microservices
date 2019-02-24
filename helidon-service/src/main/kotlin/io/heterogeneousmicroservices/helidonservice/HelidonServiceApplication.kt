@@ -54,9 +54,7 @@ private fun startServer(
     consulClient: Consul,
     serviceName: String
 ): WebServer {
-    // read config from application.yaml
-    val config = Config.create()
-    val serverConfig = ServerConfiguration.create(config.get("server"))
+    val serverConfig = ServerConfiguration.create(Config.create().get("webserver"))
 
     val server: WebServer = WebServer
         .builder(createRouting(applicationInfoService))
