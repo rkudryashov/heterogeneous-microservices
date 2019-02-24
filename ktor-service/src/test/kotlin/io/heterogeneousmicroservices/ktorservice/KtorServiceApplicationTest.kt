@@ -6,36 +6,60 @@ import com.orbitz.consul.Consul
 import io.heterogeneousmicroservices.ktorservice.model.ApplicationInfo
 import io.heterogeneousmicroservices.ktorservice.module.module
 import io.ktor.application.Application
+import io.ktor.http.ContentType
 import io.ktor.http.HttpMethod
+import io.ktor.server.testing.contentType
 import io.ktor.server.testing.handleRequest
 import io.ktor.server.testing.withTestApplication
+import org.junit.jupiter.api.Assertions.assertArrayEquals
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Test
 import org.koin.standalone.StandAloneContext.startKoin
 import org.koin.test.AutoCloseKoinTest
 import org.koin.test.declareMock
+import java.io.File
 
 internal class KtorServiceApplicationTest : AutoCloseKoinTest() {
 
+    companion object {
+        @BeforeAll
+        @JvmStatic
+        fun setUp() {
+            startKoin(listOf(applicationContext))
+        }
+    }
+
     // todo remove read `env` property for test purpose
     @Test
-    fun testGet(): Unit = withTestApplication(Application::module) {
-        startKoin(listOf(applicationContext))
-        declareMock<Consul>()
-        val mapper = jacksonObjectMapper()
-        handleRequest(HttpMethod.Get, "/application-info").apply {
-            assertEquals(200, response.status()?.value)
-            val expected = ApplicationInfo(
-                "ktor-service",
-                ApplicationInfo.Framework("Ktor", 2018),
-                null
-            )
-            assertEquals(
-                expected,
-                mapper.readValue<ApplicationInfo>(
+    fun testGet() {
+        withTestApplication(Application::module) {
+            declareMock<Consul>()
+            val mapper = jacksonObjectMapper()
+            handleRequest(HttpMethod.Get, "/application-info").apply {
+                assertEquals(200, response.status()?.value)
+                assertEquals(ContentType.Application.Json, response.contentType().withoutParameters())
+                val expected = ApplicationInfo(
+                    "ktor-service", ApplicationInfo.Framework("Ktor", 2018), null
+                )
+                val actual = mapper.readValue<ApplicationInfo>(
                     response.content ?: throw IllegalStateException("No content found in response")
                 )
-            )
+                assertEquals(expected, actual)
+            }
+        }
+    }
+
+    @Test
+    fun testGetLogo() {
+        withTestApplication(Application::module) {
+            declareMock<Consul>()
+            handleRequest(HttpMethod.Get, "/application-info/logo").apply {
+                assertEquals(200, response.status()?.value)
+                assertEquals(ContentType.Image.PNG, response.contentType())
+                val expected = File("src/main/resources/logo.png").readBytes()
+                assertArrayEquals(expected, response.byteContent)
+            }
         }
     }
 }
