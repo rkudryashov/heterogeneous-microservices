@@ -3,6 +3,7 @@ package io.heterogeneousmicroservices.springbootservice.service
 import io.heterogeneousmicroservices.springbootservice.config.ApplicationInfoConfigurationProperties
 import io.heterogeneousmicroservices.springbootservice.model.ApplicationInfo
 import io.heterogeneousmicroservices.springbootservice.model.Projection
+import org.springframework.core.io.ClassPathResource
 import org.springframework.stereotype.Service
 
 @Service
@@ -22,4 +23,6 @@ class ApplicationInfoService(
             Projection.FULL -> helidonServiceClient.getApplicationInfo()
         }
     )
+
+    fun getLogo(): ByteArray = ClassPathResource("logo.png").inputStream.readBytes()
 }

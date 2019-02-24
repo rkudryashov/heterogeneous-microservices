@@ -9,15 +9,14 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-@RequestMapping(
-    path = ["/application-info"],
-    produces = [MediaType.APPLICATION_JSON_UTF8_VALUE]
-)
-// todo replace with functional routing
+@RequestMapping(path = ["application-info"], produces = [MediaType.APPLICATION_JSON_UTF8_VALUE])
 class ApplicationInfoController(
     private val applicationInfoService: ApplicationInfoService
 ) {
 
     @GetMapping
     fun get(projection: Projection?): ApplicationInfo = applicationInfoService.get(projection ?: Projection.DEFAULT)
+
+    @GetMapping(path = ["/logo"], produces = [MediaType.IMAGE_PNG_VALUE])
+    fun getLogo(): ByteArray = applicationInfoService.getLogo()
 }
