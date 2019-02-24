@@ -15,9 +15,12 @@ import io.ktor.features.CallLogging
 import io.ktor.features.Compression
 import io.ktor.features.ContentNegotiation
 import io.ktor.features.DefaultHeaders
+import io.ktor.http.content.resource
+import io.ktor.http.content.static
 import io.ktor.jackson.jackson
 import io.ktor.response.respond
 import io.ktor.routing.get
+import io.ktor.routing.route
 import io.ktor.routing.routing
 import org.koin.ktor.ext.inject
 
@@ -42,11 +45,16 @@ fun Application.module() {
     }
 
     routing {
-        get("/application-info{projection?}") {
-            val requestProjection: String? = call.parameters["projection"]
-            val projection =
-                if (!requestProjection.isNullOrBlank()) Projection.valueOf(requestProjection.toUpperCase()) else Projection.DEFAULT
-            call.respond(applicationInfoService.get(projection))
+        route("application-info") {
+            get {
+                val requestProjection: String? = call.parameters["projection"]
+                val projection =
+                    if (!requestProjection.isNullOrBlank()) Projection.valueOf(requestProjection.toUpperCase()) else Projection.DEFAULT
+                call.respond(applicationInfoService.get(projection))
+            }
+            static {
+                resource("/logo", "logo.png")
+            }
         }
     }
 }
