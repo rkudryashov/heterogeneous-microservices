@@ -30,7 +30,7 @@ internal class HelidonServiceApplicationTest : AutoCloseKoinTest() {
         startKoin(listOf(applicationContext))
         this.declareMock<Consul>()
 
-        val startTimeout = 5000L // 5 seconds should be enough
+        val startTimeout = 10000L // 10 seconds should be enough
         val startTime = System.currentTimeMillis()
 
         server = HelidonServiceApplication.startServer()
@@ -48,7 +48,7 @@ internal class HelidonServiceApplicationTest : AutoCloseKoinTest() {
     fun afterEach() {
         server?.shutdown()
             ?.toCompletableFuture()
-            ?.get(10, TimeUnit.SECONDS)
+            ?.get(5, TimeUnit.SECONDS)
         stopKoin()
     }
 
