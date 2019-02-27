@@ -3,7 +3,6 @@ package io.heterogeneousmicroservices.springbootservice.model
 data class ApplicationInfo(
     val name: String,
     val framework: Framework,
-    // todo image
     val followingApplication: ApplicationInfo?
 ) {
 
