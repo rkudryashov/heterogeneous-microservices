@@ -36,16 +36,13 @@ object HelidonServiceApplication : KoinComponent {
     @JvmStatic
     fun main(args: Array<String>) {
         startKoin(listOf(applicationContext))
-        startServer()
-    }
 
-    fun startServer(): WebServer {
         val applicationInfoService: ApplicationInfoService by inject()
         val consulClient: Consul by inject()
         val applicationInfoProperties: ApplicationInfoProperties by inject()
         val serviceName = applicationInfoProperties.name
 
-        return startServer(applicationInfoService, consulClient, serviceName)
+        startServer(applicationInfoService, consulClient, serviceName)
     }
 }
 
