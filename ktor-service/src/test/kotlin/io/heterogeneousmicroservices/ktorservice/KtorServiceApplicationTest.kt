@@ -15,9 +15,9 @@ import org.junit.jupiter.api.Assertions.assertArrayEquals
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Test
-import org.koin.standalone.StandAloneContext.startKoin
+import org.koin.core.context.startKoin
 import org.koin.test.AutoCloseKoinTest
-import org.koin.test.declareMock
+import org.koin.test.mock.declareMock
 import java.io.File
 
 internal class KtorServiceApplicationTest : AutoCloseKoinTest() {
@@ -26,7 +26,9 @@ internal class KtorServiceApplicationTest : AutoCloseKoinTest() {
         @BeforeAll
         @JvmStatic
         fun setUp() {
-            startKoin(listOf(applicationContext))
+            startKoin {
+                modules(applicationContext)
+            }
         }
     }
 

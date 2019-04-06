@@ -13,11 +13,11 @@ import org.junit.jupiter.api.Assertions.assertArrayEquals
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import org.koin.standalone.StandAloneContext.startKoin
-import org.koin.standalone.StandAloneContext.stopKoin
-import org.koin.standalone.inject
+import org.koin.core.context.startKoin
+import org.koin.core.context.stopKoin
+import org.koin.core.inject
 import org.koin.test.AutoCloseKoinTest
-import org.koin.test.declareMock
+import org.koin.test.mock.declareMock
 import java.net.HttpURLConnection
 import java.net.URL
 import java.util.concurrent.TimeUnit
@@ -30,7 +30,9 @@ internal class HelidonServiceApplicationTest : AutoCloseKoinTest() {
     // todo how to start server and koin once?
     @BeforeEach
     fun beforeEach() {
-        startKoin(listOf(applicationContext))
+        startKoin {
+            modules(applicationContext)
+        }
         this.declareMock<Consul>()
         val applicationInfoService: ApplicationInfoService by inject()
         val consulClient: Consul by inject()

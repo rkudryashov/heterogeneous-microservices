@@ -26,13 +26,13 @@ application {
 }
 
 repositories {
+    maven("https://dl.bintray.com/micronaut/core-releases-local")
     mavenCentral()
 }
 
 dependencies {
     kapt("io.micronaut:micronaut-inject-java")
-    kapt("io.micronaut:micronaut-validation")
-    implementation(kotlin("stdlib-jdk8"))
+    implementation(kotlin("stdlib"))
     implementation(kotlin("reflect"))
     implementation("javax.annotation:javax.annotation-api")
     implementation("io.micronaut:micronaut-runtime")

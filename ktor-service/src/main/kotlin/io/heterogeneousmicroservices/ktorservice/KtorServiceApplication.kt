@@ -7,9 +7,10 @@ import io.heterogeneousmicroservices.ktorservice.service.MicronautServiceClient
 import io.ktor.server.engine.commandLineEnvironment
 import io.ktor.server.engine.embeddedServer
 import io.ktor.server.netty.Netty
-import org.koin.dsl.module.module
-import org.koin.standalone.StandAloneContext.startKoin
+import org.koin.core.context.startKoin
+import org.koin.dsl.module
 
+// todo rename
 val applicationContext = module {
     single { ApplicationInfoService(get(), get()) }
     single { ApplicationInfoProperties() }
@@ -18,7 +19,9 @@ val applicationContext = module {
 }
 
 fun main(args: Array<String>) {
-    startKoin(listOf(applicationContext))
+    startKoin {
+        modules(applicationContext)
+    }
     val server = embeddedServer(Netty, commandLineEnvironment(args))
     server.start(wait = true)
 }

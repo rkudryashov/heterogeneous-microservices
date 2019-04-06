@@ -6,6 +6,7 @@ val koinVersion: String by project
 val consulClientVersion: String by project
 val logbackVersion: String by project
 val junitVersion: String by project
+val mockitoVersion: String by project
 
 plugins {
     application
@@ -26,7 +27,7 @@ repositories {
 }
 
 dependencies {
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion")
+    implementation(kotlin("stdlib"))
     implementation("io.ktor:ktor-server-netty:$ktorVersion")
     implementation("io.ktor:ktor-jackson:$ktorVersion")
     implementation("io.ktor:ktor-client-apache:$ktorVersion")
@@ -38,6 +39,8 @@ dependencies {
     testImplementation("org.koin:koin-test:$koinVersion")
     testImplementation("org.junit.jupiter:junit-jupiter-api:$junitVersion")
     testRuntime("org.junit.jupiter:junit-jupiter-engine:$junitVersion")
+    // fixme temporary override mockito version that comes from koin-test
+    testRuntime("org.mockito:mockito-core:$mockitoVersion")
 }
 
 tasks {

@@ -15,10 +15,10 @@ import io.heterogeneousmicroservices.helidonservice.config.ApplicationInfoProper
 import io.heterogeneousmicroservices.helidonservice.model.Projection
 import io.heterogeneousmicroservices.helidonservice.service.ApplicationInfoService
 import io.heterogeneousmicroservices.helidonservice.service.KtorServiceClient
-import org.koin.dsl.module.module
-import org.koin.standalone.KoinComponent
-import org.koin.standalone.StandAloneContext.startKoin
-import org.koin.standalone.inject
+import org.koin.core.KoinComponent
+import org.koin.core.context.startKoin
+import org.koin.core.inject
+import org.koin.dsl.module
 import org.slf4j.LoggerFactory
 
 // todo rename in two projects
@@ -35,7 +35,9 @@ object HelidonServiceApplication : KoinComponent {
 
     @JvmStatic
     fun main(args: Array<String>) {
-        startKoin(listOf(applicationContext))
+        startKoin {
+            modules(applicationContext)
+        }
 
         val applicationInfoService: ApplicationInfoService by inject()
         val consulClient: Consul by inject()
