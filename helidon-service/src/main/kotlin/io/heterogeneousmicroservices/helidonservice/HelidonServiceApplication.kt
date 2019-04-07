@@ -46,7 +46,7 @@ object HelidonServiceApplication : KoinComponent {
     }
 }
 
-private fun startServer(
+fun startServer(
     applicationInfoService: ApplicationInfoService,
     consulClient: Consul,
     serviceName: String

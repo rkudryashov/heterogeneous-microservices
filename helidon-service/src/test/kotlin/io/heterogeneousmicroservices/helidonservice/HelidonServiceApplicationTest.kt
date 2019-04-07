@@ -5,7 +5,9 @@ import com.orbitz.consul.Consul
 import io.helidon.common.configurable.Resource
 import io.helidon.common.http.MediaType
 import io.helidon.webserver.WebServer
+import io.heterogeneousmicroservices.helidonservice.config.ApplicationInfoProperties
 import io.heterogeneousmicroservices.helidonservice.model.ApplicationInfo
+import io.heterogeneousmicroservices.helidonservice.service.ApplicationInfoService
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.assertArrayEquals
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -13,6 +15,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.koin.standalone.StandAloneContext.startKoin
 import org.koin.standalone.StandAloneContext.stopKoin
+import org.koin.standalone.inject
 import org.koin.test.AutoCloseKoinTest
 import org.koin.test.declareMock
 import java.net.HttpURLConnection
@@ -29,11 +32,14 @@ internal class HelidonServiceApplicationTest : AutoCloseKoinTest() {
     fun beforeEach() {
         startKoin(listOf(applicationContext))
         this.declareMock<Consul>()
+        val applicationInfoService: ApplicationInfoService by inject()
+        val consulClient: Consul by inject()
+        val applicationInfoProperties: ApplicationInfoProperties by inject()
 
         val startTimeout = 10000L // 10 seconds should be enough
         val startTime = System.currentTimeMillis()
 
-        server = HelidonServiceApplication.startServer()
+        server = startServer(applicationInfoService, consulClient, applicationInfoProperties.name)
         server?.let {
             while (!it.isRunning) {
                 Thread.sleep(100)
