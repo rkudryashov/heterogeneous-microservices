@@ -19,7 +19,6 @@ class ApplicationInfoController(
     @Get
     fun get(projection: Projection?): ApplicationInfo = applicationInfoService.get(projection ?: Projection.DEFAULT)
 
-    // todo use image mediatype after update of micronaut version
-    @Get("/logo", produces = ["image/png"])
+    @Get("/logo", produces = [MediaType.IMAGE_PNG])
     fun getLogo(): ByteArray = applicationInfoService.getLogo()
 }

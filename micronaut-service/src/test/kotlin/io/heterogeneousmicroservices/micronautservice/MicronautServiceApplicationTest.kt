@@ -55,8 +55,7 @@ internal class MicronautServiceApplicationTest {
             client!!.toBlocking().exchange("/application-info/logo", ByteArray::class.java)
 
         assertEquals(HttpStatus.OK, response.status)
-        // todo use image mediatype after update of micronaut version
-        assertEquals("image/png", response.contentType.get().name)
+        assertEquals(MediaType.IMAGE_PNG, response.contentType.get().name)
         val loader: ResourceLoader = ResourceResolver().getLoader(ClassPathResourceLoader::class.java).get()
         val expected = loader.getResource("classpath:logo.png").get().readBytes()
         assertArrayEquals(expected, response.body.get())
