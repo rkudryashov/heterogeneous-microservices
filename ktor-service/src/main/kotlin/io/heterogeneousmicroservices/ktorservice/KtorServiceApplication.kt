@@ -10,8 +10,7 @@ import io.ktor.server.netty.Netty
 import org.koin.core.context.startKoin
 import org.koin.dsl.module
 
-// todo rename
-val applicationContext = module {
+val koinModule = module {
     single { ApplicationInfoService(get(), get()) }
     single { ApplicationInfoProperties() }
     single { MicronautServiceClient(get()) }
@@ -20,7 +19,7 @@ val applicationContext = module {
 
 fun main(args: Array<String>) {
     startKoin {
-        modules(applicationContext)
+        modules(koinModule)
     }
     val server = embeddedServer(Netty, commandLineEnvironment(args))
     server.start(wait = true)

@@ -27,7 +27,7 @@ internal class KtorServiceApplicationTest : AutoCloseKoinTest() {
         @JvmStatic
         fun setUp() {
             startKoin {
-                modules(applicationContext)
+                modules(koinModule)
             }
         }
     }

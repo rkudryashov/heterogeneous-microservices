@@ -31,7 +31,7 @@ internal class HelidonServiceApplicationTest : AutoCloseKoinTest() {
     @BeforeEach
     fun beforeEach() {
         startKoin {
-            modules(applicationContext)
+            modules(koinModule)
         }
         this.declareMock<Consul>()
         val applicationInfoService: ApplicationInfoService by inject()

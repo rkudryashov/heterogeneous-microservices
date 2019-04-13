@@ -21,8 +21,7 @@ import org.koin.core.inject
 import org.koin.dsl.module
 import org.slf4j.LoggerFactory
 
-// todo rename in two projects
-val applicationContext = module {
+val koinModule = module {
     single { ApplicationInfoService(get(), get()) }
     single { ApplicationInfoProperties() }
     single { KtorServiceClient(get()) }
@@ -36,7 +35,7 @@ object HelidonServiceApplication : KoinComponent {
     @JvmStatic
     fun main(args: Array<String>) {
         startKoin {
-            modules(applicationContext)
+            modules(koinModule)
         }
 
         val applicationInfoService: ApplicationInfoService by inject()
