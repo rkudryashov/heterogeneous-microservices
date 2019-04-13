@@ -26,7 +26,6 @@ internal class HelidonServiceApplicationTest : AutoCloseKoinTest() {
 
     private var server: WebServer? = null
 
-    // todo rewrite using coroutines
     // todo how to start server and koin once?
     @BeforeEach
     fun beforeEach() {

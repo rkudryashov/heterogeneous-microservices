@@ -33,15 +33,13 @@ repositories {
 dependencies {
     kapt("io.micronaut:micronaut-inject-java")
     implementation(kotlin("stdlib"))
-    implementation(kotlin("reflect"))
-    implementation("javax.annotation:javax.annotation-api")
     implementation("io.micronaut:micronaut-runtime")
     implementation("io.micronaut:micronaut-http-client")
     implementation("io.micronaut:micronaut-http-server-netty")
     runtime("io.micronaut:micronaut-discovery-client")
-    kaptTest("io.micronaut:micronaut-inject-java")
     runtime("ch.qos.logback:logback-classic:$logbackVersion")
     runtime("com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonVersion")
+    kaptTest("io.micronaut:micronaut-inject-java")
     testImplementation("org.junit.jupiter:junit-jupiter-api:$junitVersion")
     testRuntime("org.junit.jupiter:junit-jupiter-engine:$junitVersion")
 }
