@@ -34,6 +34,7 @@ object HelidonServiceApplication : KoinComponent {
 
     @JvmStatic
     fun main(args: Array<String>) {
+        val startTime = System.currentTimeMillis()
         startKoin {
             modules(koinModule)
         }
@@ -43,14 +44,15 @@ object HelidonServiceApplication : KoinComponent {
         val applicationInfoProperties: ApplicationInfoProperties by inject()
         val serviceName = applicationInfoProperties.name
 
-        startServer(applicationInfoService, consulClient, serviceName)
+        startServer(applicationInfoService, consulClient, serviceName, startTime)
     }
 }
 
 fun startServer(
     applicationInfoService: ApplicationInfoService,
     consulClient: Consul,
-    serviceName: String
+    serviceName: String,
+    startTime: Long
 ): WebServer {
     val serverConfig = ServerConfiguration.create(Config.create().get("webserver"))
 
@@ -60,7 +62,8 @@ fun startServer(
         .build()
 
     server.start().thenAccept { ws ->
-        log.info("Service running at: http://localhost:" + ws.port())
+        val durationInMillis = System.currentTimeMillis() - startTime
+        log.info("Startup completed in $durationInMillis ms. Service running at: http://localhost:" + ws.port())
         // register in Consul
         consulClient.agentClient().register(createConsulRegistration(serviceName, ws.port()))
     }

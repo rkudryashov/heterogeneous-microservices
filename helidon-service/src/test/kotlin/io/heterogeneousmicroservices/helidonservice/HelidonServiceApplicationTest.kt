@@ -40,7 +40,7 @@ internal class HelidonServiceApplicationTest : AutoCloseKoinTest() {
         val startTimeout = 10000L // 10 seconds should be enough
         val startTime = System.currentTimeMillis()
 
-        server = startServer(applicationInfoService, consulClient, applicationInfoProperties.name)
+        server = startServer(applicationInfoService, consulClient, applicationInfoProperties.name, startTime)
         server?.let {
             while (!it.isRunning) {
                 Thread.sleep(100)
