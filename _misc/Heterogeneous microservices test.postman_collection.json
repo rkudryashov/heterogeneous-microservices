@@ -1,0 +1,82 @@
+{
+	"info": {
+		"_postman_id": "9fc37c89-aa10-41da-ae47-bf4762abae06",
+		"name": "Heterogeneous microservices test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get application info",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:8081/application-info",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"application-info"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get extended application info",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:8081/application-info?projection=FULL",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"application-info"
+					],
+					"query": [
+						{
+							"key": "projection",
+							"value": "FULL"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get logo",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:8081/application-info/logo",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"application-info",
+						"logo"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
