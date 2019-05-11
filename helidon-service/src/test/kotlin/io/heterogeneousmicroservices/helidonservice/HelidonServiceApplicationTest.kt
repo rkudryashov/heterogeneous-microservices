@@ -37,7 +37,7 @@ internal class HelidonServiceApplicationTest : AutoCloseKoinTest() {
         val consulClient: Consul by inject()
         val applicationInfoProperties: ApplicationInfoProperties by inject()
 
-        val startTimeout = 10000L // 10 seconds should be enough
+        val startTimeout = 20000L // 20 seconds should be enough
         val startTime = System.currentTimeMillis()
 
         server = startServer(applicationInfoService, consulClient, applicationInfoProperties.name, startTime)
