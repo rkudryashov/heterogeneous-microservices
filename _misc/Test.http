@@ -1,8 +1,0 @@
-### Get application info
-GET http://localhost:8081/application-info
-
-### Get extended application info
-GET http://localhost:8081/application-info?projection=FULL
-
-### Get logo
-GET http://localhost:8081/application-info/logo
