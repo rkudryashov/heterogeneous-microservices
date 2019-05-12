@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "9fc37c89-aa10-41da-ae47-bf4762abae06",
+		"_postman_id": "bcb746f8-1234-4ee9-aec4-218f29c91263",
 		"name": "Heterogeneous microservices test",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -15,11 +15,11 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "localhost:8081/application-info",
+					"raw": "localhost:{{port}}/application-info",
 					"host": [
 						"localhost"
 					],
-					"port": "8081",
+					"port": "{{port}}",
 					"path": [
 						"application-info"
 					]
@@ -37,11 +37,11 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "localhost:8081/application-info?projection=FULL",
+					"raw": "localhost:{{port}}/application-info?projection=FULL",
 					"host": [
 						"localhost"
 					],
-					"port": "8081",
+					"port": "{{port}}",
 					"path": [
 						"application-info"
 					],
@@ -65,11 +65,11 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "localhost:8081/application-info/logo",
+					"raw": "localhost:{{port}}/application-info/logo",
 					"host": [
 						"localhost"
 					],
-					"port": "8081",
+					"port": "{{port}}",
 					"path": [
 						"application-info",
 						"logo"
@@ -77,6 +77,36 @@
 				}
 			},
 			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "737fc8c9-91a3-4aeb-a2f0-90474aaf78bb",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "de350946-5e7f-4bef-b239-d0b08c923e16",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "35cf6f54-d50f-4c5b-ba79-d7cae424862f",
+			"key": "port",
+			"value": "8080",
+			"type": "string"
 		}
 	]
 }
