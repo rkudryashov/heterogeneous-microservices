@@ -3,23 +3,22 @@ package io.heterogeneousmicroservices.helidonservice.service
 import io.helidon.common.configurable.Resource
 import io.heterogeneousmicroservices.helidonservice.config.ApplicationInfoProperties
 import io.heterogeneousmicroservices.helidonservice.model.ApplicationInfo
-import io.heterogeneousmicroservices.helidonservice.model.Projection
 
 class ApplicationInfoService(
     private val applicationInfoProperties: ApplicationInfoProperties,
-    private val ktorServiceClient: KtorServiceClient
+    private val serviceClient: ServiceClient
 ) {
 
-    fun get(projection: Projection): ApplicationInfo = ApplicationInfo(
+    fun get(serviceName: String?): ApplicationInfo = ApplicationInfo(
         applicationInfoProperties.name,
         ApplicationInfo.Framework(
             applicationInfoProperties.frameworkName,
             applicationInfoProperties.frameworkReleaseDate
         ),
-        when (projection) {
-            Projection.DEFAULT -> null
-            Projection.FULL -> ktorServiceClient.getApplicationInfo()
-        }
+        if (serviceName == null)
+            null
+        else
+            serviceClient.getApplicationInfo(serviceName)
     )
 
     fun getLogo(): ByteArray = Resource.create("logo.png").bytes()

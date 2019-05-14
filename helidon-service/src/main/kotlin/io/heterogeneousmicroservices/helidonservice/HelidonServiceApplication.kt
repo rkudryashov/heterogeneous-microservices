@@ -12,9 +12,8 @@ import io.helidon.webserver.Routing
 import io.helidon.webserver.ServerConfiguration
 import io.helidon.webserver.WebServer
 import io.heterogeneousmicroservices.helidonservice.config.ApplicationInfoProperties
-import io.heterogeneousmicroservices.helidonservice.model.Projection
 import io.heterogeneousmicroservices.helidonservice.service.ApplicationInfoService
-import io.heterogeneousmicroservices.helidonservice.service.KtorServiceClient
+import io.heterogeneousmicroservices.helidonservice.service.ServiceClient
 import org.koin.core.KoinComponent
 import org.koin.core.context.startKoin
 import org.koin.core.inject
@@ -24,7 +23,7 @@ import org.slf4j.LoggerFactory
 val koinModule = module {
     single { ApplicationInfoService(get(), get()) }
     single { ApplicationInfoProperties() }
-    single { KtorServiceClient(get()) }
+    single { ServiceClient(get()) }
     single { Consul.builder().withUrl("http://localhost:8500").build() }
 }
 
@@ -74,14 +73,13 @@ fun startServer(
 private fun createRouting(applicationInfoService: ApplicationInfoService) = Routing.builder()
     .register(JacksonSupport.create())
     .get("/application-info", Handler { req, res ->
-        val projection = req.queryParams()
-            .first("projection")
-            .map { Projection.valueOf(it.toUpperCase()) }
-            .orElse(Projection.DEFAULT)
+        val requestTo: String? = req.queryParams()
+            .first("requestTo")
+            .orElse(null)
 
         res
             .status(Http.ResponseStatus.create(200))
-            .send(applicationInfoService.get(projection))
+            .send(applicationInfoService.get(requestTo))
     })
     .get("/application-info/logo", Handler { req, res ->
         res.headers().contentType(MediaType.create("image", "png"))

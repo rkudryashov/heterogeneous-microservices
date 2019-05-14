@@ -10,17 +10,16 @@ import java.net.http.HttpClient
 import java.net.http.HttpRequest
 import java.net.http.HttpResponse.BodyHandlers
 
-class KtorServiceClient(
+class ServiceClient(
     private val consulClient: Consul
 ) {
 
     private val httpClient = HttpClient.newHttpClient()
     private val objectMapper = jacksonObjectMapper()
-    private val ktorServiceName = "ktor-service"
     private var serviceInstanceIndex = 0
 
-    fun getApplicationInfo(): ApplicationInfo {
-        val serviceInstance = getNext()
+    fun getApplicationInfo(serviceName: String): ApplicationInfo {
+        val serviceInstance = getNext(serviceName)
         val serviceUrl = "http://${serviceInstance.service.address}:${serviceInstance.service.port}"
         val request = HttpRequest.newBuilder()
             .uri(URI.create("$serviceUrl/application-info"))
@@ -29,8 +28,8 @@ class KtorServiceClient(
         return objectMapper.readValue(response.body())
     }
 
-    private fun getNext(): ServiceHealth {
-        val serviceInstances = consulClient.healthClient().getHealthyServiceInstances(ktorServiceName).response
+    private fun getNext(serviceName: String): ServiceHealth {
+        val serviceInstances = consulClient.healthClient().getHealthyServiceInstances(serviceName).response
         val selectedInstance = serviceInstances[serviceInstanceIndex]
         serviceInstanceIndex = (serviceInstanceIndex + 1) % serviceInstances.size
         return selectedInstance
