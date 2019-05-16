@@ -9,16 +9,16 @@ class ApplicationInfoService(
     private val serviceClient: ServiceClient
 ) {
 
-    fun get(serviceName: String?): ApplicationInfo = ApplicationInfo(
+    fun get(anotherServiceName: String?): ApplicationInfo = ApplicationInfo(
         applicationInfoProperties.name,
         ApplicationInfo.Framework(
             applicationInfoProperties.frameworkName,
             applicationInfoProperties.frameworkReleaseDate
         ),
-        if (serviceName == null)
+        if (anotherServiceName == null)
             null
         else
-            serviceClient.getApplicationInfo(serviceName)
+            serviceClient.getApplicationInfo(anotherServiceName)
     )
 
     fun getLogo(): ByteArray = Resource.create("logo.png").bytes()

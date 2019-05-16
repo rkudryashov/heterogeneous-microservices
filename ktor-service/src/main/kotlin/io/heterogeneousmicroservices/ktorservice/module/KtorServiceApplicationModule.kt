@@ -4,7 +4,6 @@ import com.orbitz.consul.Consul
 import com.orbitz.consul.model.agent.ImmutableRegistration
 import com.typesafe.config.ConfigFactory
 import com.typesafe.config.ConfigUtil
-import io.heterogeneousmicroservices.ktorservice.model.Projection
 import io.heterogeneousmicroservices.ktorservice.service.ApplicationInfoService
 import io.ktor.application.Application
 import io.ktor.application.call
@@ -34,7 +33,7 @@ fun Application.module() {
 
     if (!isTest()) {
         val consulClient: Consul by inject()
-        registerInConsul(applicationInfoService.get(Projection.DEFAULT).name, consulClient)
+        registerInConsul(applicationInfoService.get(null).name, consulClient)
     }
 
     install(DefaultHeaders)
@@ -47,10 +46,8 @@ fun Application.module() {
     routing {
         route("application-info") {
             get {
-                val requestProjection: String? = call.parameters["projection"]
-                val projection =
-                    if (!requestProjection.isNullOrBlank()) Projection.valueOf(requestProjection.toUpperCase()) else Projection.DEFAULT
-                call.respond(applicationInfoService.get(projection))
+                val requestTo: String? = call.parameters["requestTo"]
+                call.respond(applicationInfoService.get(requestTo))
             }
             static {
                 resource("/logo", "logo.png")

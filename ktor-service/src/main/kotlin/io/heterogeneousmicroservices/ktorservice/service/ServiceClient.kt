@@ -11,8 +11,9 @@ import io.ktor.client.request.accept
 import io.ktor.client.request.get
 import io.ktor.http.ContentType
 import io.ktor.http.contentType
+import kotlinx.coroutines.runBlocking
 
-class MicronautServiceClient(
+class ServiceClient(
     private val consulClient: Consul
 ) {
 
@@ -21,13 +22,14 @@ class MicronautServiceClient(
             serializer = JacksonSerializer()
         }
         install(ConsulFeature) {
-            this.consulClient = this@MicronautServiceClient.consulClient
+            this.consulClient = this@ServiceClient.consulClient
         }
     }
 
-    suspend fun getFollowingApplicationInfo(): ApplicationInfo = httpClient
-        .get("http://micronaut-service/application-info") {
+    fun getApplicationInfo(serviceName: String): ApplicationInfo = runBlocking {
+        httpClient.get<ApplicationInfo>("http://$serviceName/application-info") {
             contentType(ContentType.Application.Json)
             accept(ContentType.Application.Json)
         }
+    }
 }
