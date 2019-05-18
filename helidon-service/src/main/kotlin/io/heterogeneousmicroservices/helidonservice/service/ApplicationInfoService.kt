@@ -15,10 +15,7 @@ class ApplicationInfoService(
             applicationInfoProperties.frameworkName,
             applicationInfoProperties.frameworkReleaseDate
         ),
-        if (anotherServiceName == null)
-            null
-        else
-            serviceClient.getApplicationInfo(anotherServiceName)
+        anotherServiceName?.let { serviceClient.getApplicationInfo(anotherServiceName) }
     )
 
     fun getLogo(): ByteArray = Resource.create("logo.png").bytes()

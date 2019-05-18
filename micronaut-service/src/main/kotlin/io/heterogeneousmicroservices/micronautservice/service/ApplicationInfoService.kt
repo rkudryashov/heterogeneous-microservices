@@ -19,10 +19,7 @@ class ApplicationInfoService(
             applicationInfoConfigurationProperties.framework.name,
             applicationInfoConfigurationProperties.framework.releaseYear.toInt()
         ),
-        if (anotherServiceName == null)
-            null
-        else
-            serviceClient.getApplicationInfo(anotherServiceName)
+        anotherServiceName?.let { serviceClient.getApplicationInfo(anotherServiceName) }
     )
 
     fun getLogo(): ByteArray {

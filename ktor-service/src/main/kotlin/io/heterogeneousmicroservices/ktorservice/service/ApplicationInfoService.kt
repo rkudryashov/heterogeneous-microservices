@@ -14,9 +14,6 @@ class ApplicationInfoService(
             applicationInfoProperties.frameworkName,
             applicationInfoProperties.frameworkReleaseYear
         ),
-        if (anotherServiceName == null)
-            null
-        else
-            serviceClient.getApplicationInfo(anotherServiceName)
+        anotherServiceName?.let { serviceClient.getApplicationInfo(anotherServiceName) }
     )
 }
