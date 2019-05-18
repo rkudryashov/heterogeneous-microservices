@@ -1,7 +1,6 @@
 package io.heterogeneousmicroservices.micronautservice.web
 
 import io.heterogeneousmicroservices.micronautservice.model.ApplicationInfo
-import io.heterogeneousmicroservices.micronautservice.model.Projection
 import io.heterogeneousmicroservices.micronautservice.service.ApplicationInfoService
 import io.micronaut.http.MediaType
 import io.micronaut.http.annotation.Controller
@@ -17,7 +16,7 @@ class ApplicationInfoController(
 ) {
 
     @Get
-    fun get(projection: Projection?): ApplicationInfo = applicationInfoService.get(projection ?: Projection.DEFAULT)
+    fun get(requestTo: String?): ApplicationInfo = applicationInfoService.get(requestTo)
 
     @Get("/logo", produces = [MediaType.IMAGE_PNG])
     fun getLogo(): ByteArray = applicationInfoService.getLogo()
