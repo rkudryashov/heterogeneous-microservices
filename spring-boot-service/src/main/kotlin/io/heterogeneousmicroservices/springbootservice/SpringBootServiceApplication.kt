@@ -1,13 +1,21 @@
 package io.heterogeneousmicroservices.springbootservice
 
-import io.heterogeneousmicroservices.springbootservice.service.HelidonServiceClient
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
-import org.springframework.cloud.openfeign.EnableFeignClients
+import org.springframework.cloud.client.loadbalancer.LoadBalanced
+import org.springframework.context.annotation.Bean
+import org.springframework.web.client.RestTemplate
 
 @SpringBootApplication
-@EnableFeignClients(clients = [HelidonServiceClient::class])
-class SpringBootServiceApplication
+class SpringBootServiceApplication {
+    @Bean
+    @LoadBalanced
+    fun restTemplate() = RestTemplate()
+
+    @Bean
+    fun objectMapper() = jacksonObjectMapper()
+}
 
 fun main(args: Array<String>) {
     runApplication<SpringBootServiceApplication>(*args)

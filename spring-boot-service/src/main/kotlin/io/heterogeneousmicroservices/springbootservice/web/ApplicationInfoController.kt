@@ -1,7 +1,6 @@
 package io.heterogeneousmicroservices.springbootservice.web
 
 import io.heterogeneousmicroservices.springbootservice.model.ApplicationInfo
-import io.heterogeneousmicroservices.springbootservice.model.Projection
 import io.heterogeneousmicroservices.springbootservice.service.ApplicationInfoService
 import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.GetMapping
@@ -15,7 +14,7 @@ class ApplicationInfoController(
 ) {
 
     @GetMapping
-    fun get(projection: Projection?): ApplicationInfo = applicationInfoService.get(projection ?: Projection.DEFAULT)
+    fun get(requestTo: String?): ApplicationInfo = applicationInfoService.get(requestTo)
 
     @GetMapping(path = ["/logo"], produces = [MediaType.IMAGE_PNG_VALUE])
     fun getLogo(): ByteArray = applicationInfoService.getLogo()

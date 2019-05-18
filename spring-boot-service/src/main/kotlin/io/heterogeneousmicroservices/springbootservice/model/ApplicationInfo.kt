@@ -3,7 +3,7 @@ package io.heterogeneousmicroservices.springbootservice.model
 data class ApplicationInfo(
     val name: String,
     val framework: Framework,
-    val followingApplication: ApplicationInfo?
+    val requestedService: ApplicationInfo?
 ) {
 
     data class Framework(
