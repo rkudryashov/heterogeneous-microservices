@@ -37,14 +37,14 @@ internal class KtorServiceApplicationTest : AutoCloseKoinTest() {
     fun testGet() {
         withTestApplication(Application::module) {
             declareMock<Consul>()
-            val mapper = jacksonObjectMapper()
+            val objectMapper = jacksonObjectMapper()
             handleRequest(HttpMethod.Get, "/application-info").apply {
                 assertEquals(200, response.status()?.value)
                 assertEquals(ContentType.Application.Json, response.contentType().withoutParameters())
                 val expected = ApplicationInfo(
                     "ktor-service", ApplicationInfo.Framework("Ktor", 2018), null
                 )
-                val actual = mapper.readValue<ApplicationInfo>(
+                val actual = objectMapper.readValue<ApplicationInfo>(
                     response.content ?: throw IllegalStateException("No content found in response")
                 )
                 assertEquals(expected, actual)
