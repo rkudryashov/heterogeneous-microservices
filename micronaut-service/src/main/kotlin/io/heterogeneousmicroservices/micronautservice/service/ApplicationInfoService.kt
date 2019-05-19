@@ -1,6 +1,6 @@
 package io.heterogeneousmicroservices.micronautservice.service
 
-import io.heterogeneousmicroservices.micronautservice.config.ApplicationInfoConfigurationProperties
+import io.heterogeneousmicroservices.micronautservice.config.ApplicationInfoProperties
 import io.heterogeneousmicroservices.micronautservice.model.ApplicationInfo
 import io.micronaut.core.io.ResourceLoader
 import io.micronaut.core.io.ResourceResolver
@@ -9,15 +9,15 @@ import javax.inject.Singleton
 
 @Singleton
 class ApplicationInfoService(
-    private val applicationInfoConfigurationProperties: ApplicationInfoConfigurationProperties,
+    private val applicationInfoProperties: ApplicationInfoProperties,
     private val serviceClient: ServiceClient
 ) {
 
     fun get(anotherServiceName: String?): ApplicationInfo = ApplicationInfo(
-        applicationInfoConfigurationProperties.name,
+        applicationInfoProperties.name,
         ApplicationInfo.Framework(
-            applicationInfoConfigurationProperties.framework.name,
-            applicationInfoConfigurationProperties.framework.releaseYear.toInt()
+            applicationInfoProperties.framework.name,
+            applicationInfoProperties.framework.releaseYear.toInt()
         ),
         anotherServiceName?.let { serviceClient.getApplicationInfo(anotherServiceName) }
     )

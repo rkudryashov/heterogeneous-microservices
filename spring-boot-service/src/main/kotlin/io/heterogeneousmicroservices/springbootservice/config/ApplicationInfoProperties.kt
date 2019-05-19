@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component
 
 @Component
 @ConfigurationProperties("application-info")
-class ApplicationInfoConfigurationProperties {
+class ApplicationInfoProperties {
 
     lateinit var name: String
     val framework = FrameworkConfigurationProperties()

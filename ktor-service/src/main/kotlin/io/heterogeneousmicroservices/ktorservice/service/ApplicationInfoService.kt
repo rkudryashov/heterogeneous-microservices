@@ -4,8 +4,8 @@ import io.heterogeneousmicroservices.ktorservice.config.ApplicationInfoPropertie
 import io.heterogeneousmicroservices.ktorservice.model.ApplicationInfo
 
 class ApplicationInfoService(
-    private val serviceClient: ServiceClient,
-    private val applicationInfoProperties: ApplicationInfoProperties
+    private val applicationInfoProperties: ApplicationInfoProperties,
+    private val serviceClient: ServiceClient
 ) {
 
     fun get(anotherServiceName: String?): ApplicationInfo = ApplicationInfo(

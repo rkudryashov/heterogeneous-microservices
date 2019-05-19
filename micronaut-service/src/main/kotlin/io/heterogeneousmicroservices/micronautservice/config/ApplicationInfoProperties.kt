@@ -3,7 +3,7 @@ package io.heterogeneousmicroservices.micronautservice.config
 import io.micronaut.context.annotation.ConfigurationProperties
 
 @ConfigurationProperties("application-info")
-class ApplicationInfoConfigurationProperties {
+class ApplicationInfoProperties {
 
     lateinit var name: String
     lateinit var framework: FrameworkConfigurationProperties

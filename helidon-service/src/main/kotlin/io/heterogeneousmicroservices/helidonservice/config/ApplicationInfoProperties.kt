@@ -3,9 +3,9 @@ package io.heterogeneousmicroservices.helidonservice.config
 import io.helidon.config.Config
 import io.heterogeneousmicroservices.helidonservice.model.ApplicationInfo
 
-class ApplicationInfoProperties {
+class ApplicationInfoProperties(
 
-    private val applicationInfo = Config.create()
+    private val applicationInfo: ApplicationInfo = Config.create()
         .get("application-info").`as` {
             ApplicationInfo(
                 it["name"].asString().get(),
@@ -15,9 +15,9 @@ class ApplicationInfoProperties {
                 ),
                 null
             )
-        }.orElseThrow { IllegalStateException("Cannot parse config") }
+        }.orElseThrow { IllegalStateException("Cannot parse config") },
 
-    val name = applicationInfo.name
-    val frameworkName = applicationInfo.framework.name
-    val frameworkReleaseDate = applicationInfo.framework.releaseYear
-}
+    val name: String = applicationInfo.name,
+    val frameworkName: String = applicationInfo.framework.name,
+    val frameworkReleaseDate: Int = applicationInfo.framework.releaseYear
+)
