@@ -74,7 +74,7 @@ private fun createRouting(applicationInfoService: ApplicationInfoService) = Rout
     .register(JacksonSupport.create())
     .get("/application-info", Handler { req, res ->
         val requestTo: String? = req.queryParams()
-            .first("requestTo")
+            .first("request-to")
             .orElse(null)
 
         res

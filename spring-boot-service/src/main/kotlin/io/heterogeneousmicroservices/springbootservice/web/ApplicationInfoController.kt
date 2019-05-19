@@ -5,6 +5,7 @@ import io.heterogeneousmicroservices.springbootservice.service.ApplicationInfoSe
 import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
@@ -14,7 +15,7 @@ class ApplicationInfoController(
 ) {
 
     @GetMapping
-    fun get(requestTo: String?): ApplicationInfo = applicationInfoService.get(requestTo)
+    fun get(@RequestParam("request-to") requestTo: String?): ApplicationInfo = applicationInfoService.get(requestTo)
 
     @GetMapping(path = ["/logo"], produces = [MediaType.IMAGE_PNG_VALUE])
     fun getLogo(): ByteArray = applicationInfoService.getLogo()

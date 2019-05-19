@@ -2,7 +2,7 @@
 GET http://localhost:{{port}}/application-info
 
 ### Get application info for two services
-GET http://localhost:{{port}}/application-info?requestTo={{requestTo}}
+GET http://localhost:{{port}}/application-info?request-to={{request-to}}
 
 ### Get logo
 GET http://localhost:{{port}}/application-info/logo

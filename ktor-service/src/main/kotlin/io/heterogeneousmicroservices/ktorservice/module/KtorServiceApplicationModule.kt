@@ -46,7 +46,7 @@ fun Application.module() {
     routing {
         route("application-info") {
             get {
-                val requestTo: String? = call.parameters["requestTo"]
+                val requestTo: String? = call.parameters["request-to"]
                 call.respond(applicationInfoService.get(requestTo))
             }
             static {
