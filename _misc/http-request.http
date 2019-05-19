@@ -1,8 +1,8 @@
 ### Get application info
 GET http://localhost:{{port}}/application-info
 
-### Get extended application info
-GET http://localhost:{{port}}/application-info?projection=FULL
+### Get application info for two services
+GET http://localhost:{{port}}/application-info?requestTo={{requestTo}}
 
 ### Get logo
 GET http://localhost:{{port}}/application-info/logo
