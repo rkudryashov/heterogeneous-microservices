@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "bcb746f8-1234-4ee9-aec4-218f29c91263",
+		"_postman_id": "f4d32211-7ddf-40c5-8863-98c0aa4609cf",
 		"name": "Heterogeneous microservices test",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -10,10 +10,6 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
 				"url": {
 					"raw": "localhost:{{port}}/application-info",
 					"host": [
@@ -32,12 +28,8 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
 				"url": {
-					"raw": "localhost:{{port}}/application-info?projection=FULL",
+					"raw": "localhost:{{port}}/application-info?request-to=spring-boot-service",
 					"host": [
 						"localhost"
 					],
@@ -47,8 +39,8 @@
 					],
 					"query": [
 						{
-							"key": "projection",
-							"value": "FULL"
+							"key": "request-to",
+							"value": "spring-boot-service"
 						}
 					]
 				}
@@ -60,10 +52,6 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
 				"url": {
 					"raw": "localhost:{{port}}/application-info/logo",
 					"host": [
@@ -103,9 +91,9 @@
 	],
 	"variable": [
 		{
-			"id": "35cf6f54-d50f-4c5b-ba79-d7cae424862f",
+			"id": "1c643348-8cab-4c68-8161-1388ea5ec568",
 			"key": "port",
-			"value": "8080",
+			"value": "8081",
 			"type": "string"
 		}
 	]
