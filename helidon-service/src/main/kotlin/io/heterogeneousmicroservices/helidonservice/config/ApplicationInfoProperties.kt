@@ -19,5 +19,5 @@ class ApplicationInfoProperties(
 
     val name: String = applicationInfo.name,
     val frameworkName: String = applicationInfo.framework.name,
-    val frameworkReleaseDate: Int = applicationInfo.framework.releaseYear
+    val frameworkReleaseYear: Int = applicationInfo.framework.releaseYear
 )
