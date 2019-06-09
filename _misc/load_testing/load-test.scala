@@ -9,14 +9,18 @@ import io.gatling.jdbc.Predef._
 class LoadTest extends Simulation {
 
 	val httpProtocol = http
-		.baseUrl("http://localhost:8084")
+		.baseUrl("http://localhost:8081")
 
-	val scn = scenario("GetApplicationInfo").repeat(2000) {
+	val scn = scenario("GetApplicationInfo").repeat(1000) {
 		exec(http("GetApplicationInfo")
 			.get("/application-info")
-			.check(status.is(200)))
+			.check(status.is(200))
+			.check(jsonPath("$.name")))
 	}
 
-	setUp(scn.inject(atOnceUsers(30)))
-		.protocols(httpProtocol)
+	setUp(
+		scn.inject(
+			rampUsers(200) during (20 seconds)
+		).protocols(httpProtocol)
+	)
 }
