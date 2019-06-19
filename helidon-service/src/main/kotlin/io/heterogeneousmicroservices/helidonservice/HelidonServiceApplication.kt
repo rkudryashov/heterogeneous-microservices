@@ -87,10 +87,6 @@ private fun createRouting(applicationInfoService: ApplicationInfoService) = Rout
             .status(Http.ResponseStatus.create(200))
             .send(applicationInfoService.getLogo())
     })
-    .error(NotFoundException::class.java) { req, res, ex ->
-        log.error("NotFoundException:", ex)
-        res.status(Http.Status.BAD_REQUEST_400).send()
-    }
     .error(Exception::class.java) { req, res, ex ->
         log.error("Exception:", ex)
         res.status(Http.Status.INTERNAL_SERVER_ERROR_500).send()
