@@ -36,8 +36,7 @@ dependencies {
     runtime("ch.qos.logback:logback-classic:$logbackVersion")
     testImplementation("io.ktor:ktor-server-test-host:$ktorVersion")
     testImplementation("org.koin:koin-test:$koinVersion")
-    testImplementation("org.junit.jupiter:junit-jupiter-api:$junitVersion")
-    testRuntime("org.junit.jupiter:junit-jupiter-engine:$junitVersion")
+    testImplementation("org.junit.jupiter:junit-jupiter:$junitVersion")
     // fixme temporary override mockito version that comes from koin-test
     testRuntime("org.mockito:mockito-core:$mockitoVersion")
 }

@@ -40,8 +40,7 @@ dependencies {
     runtime("ch.qos.logback:logback-classic:$logbackVersion")
     runtime("com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonVersion")
     kaptTest("io.micronaut:micronaut-inject-java")
-    testImplementation("org.junit.jupiter:junit-jupiter-api:$junitVersion")
-    testRuntime("org.junit.jupiter:junit-jupiter-engine:$junitVersion")
+    testImplementation("org.junit.jupiter:junit-jupiter:$junitVersion")
 }
 
 dependencyManagement {
