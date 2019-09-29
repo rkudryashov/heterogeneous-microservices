@@ -44,9 +44,7 @@ internal class HelidonServiceApplicationTest : AutoCloseKoinTest() {
         server?.let {
             while (!it.isRunning) {
                 Thread.sleep(100)
-                if (System.currentTimeMillis() - startTime > startTimeout) {
-                    throw IllegalStateException("Webserver haven't been started")
-                }
+                check(System.currentTimeMillis() - startTime <= startTimeout) { "Webserver haven't been started" }
             }
         }
     }

@@ -6,6 +6,7 @@ val consulClientVersion: String by project
 val jacksonVersion: String by project
 val logbackVersion: String by project
 val junitVersion: String by project
+val mockitoVersion: String by project
 
 buildscript {
     repositories {
@@ -41,6 +42,8 @@ dependencies {
     runtime("ch.qos.logback:logback-classic:$logbackVersion")
     testImplementation("org.koin:koin-test:$koinVersion")
     testImplementation("org.junit.jupiter:junit-jupiter:$junitVersion")
+    // fixme temporary override mockito version that comes from koin-test
+    testRuntime("org.mockito:mockito-core:$mockitoVersion")
 }
 
 dependencyManagement {

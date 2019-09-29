@@ -1,6 +1,5 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
-val kotlinVersion: String by project
 val ktorVersion: String by project
 val koinVersion: String by project
 val consulClientVersion: String by project
