@@ -1,13 +1,18 @@
 rootProject.name = "heterogeneous-microservices"
 
-include("helidon-service", "ktor-service", "micronaut-service", "spring-boot-service")
-
-val kotlinVersion: String by settings
-val springBootPluginVersion: String by settings
-val springDependencyManagementPluginVersion: String by settings
-val shadowPluginVersion: String by settings
+include(
+    "helidon-service",
+    "ktor-service",
+    "micronaut-service",
+    "spring-boot-service"
+)
 
 pluginManagement {
+    val kotlinVersion: String by settings
+    val springBootPluginVersion: String by settings
+    val springDependencyManagementPluginVersion: String by settings
+    val shadowPluginVersion: String by settings
+
     resolutionStrategy {
         eachPlugin {
             when (requested.id.id) {
