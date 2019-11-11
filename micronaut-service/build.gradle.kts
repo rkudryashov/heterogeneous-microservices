@@ -1,4 +1,3 @@
-import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 val micronautVersion: String by project
@@ -6,18 +5,11 @@ val jacksonVersion: String by project
 val logbackVersion: String by project
 val junitVersion: String by project
 
-buildscript {
-    repositories {
-        mavenCentral()
-    }
-}
-
 plugins {
     application
     id("com.github.johnrengelman.shadow")
     kotlin("jvm")
     kotlin("kapt")
-    id("io.spring.dependency-management")
     jacoco
 }
 
@@ -25,13 +17,9 @@ application {
     mainClassName = "io.heterogeneousmicroservices.micronautservice.MicronautServiceApplication"
 }
 
-repositories {
-    maven("https://dl.bintray.com/micronaut/core-releases-local")
-    mavenCentral()
-}
-
 dependencies {
-    kapt("io.micronaut:micronaut-inject-java")
+    kapt("io.micronaut:micronaut-inject-java:$micronautVersion")
+    implementation(enforcedPlatform("io.micronaut:micronaut-bom:$micronautVersion"))
     implementation(kotlin("stdlib"))
     implementation("io.micronaut:micronaut-runtime")
     implementation("io.micronaut:micronaut-http-client")
@@ -39,14 +27,8 @@ dependencies {
     runtimeOnly("io.micronaut:micronaut-discovery-client")
     runtimeOnly("ch.qos.logback:logback-classic:$logbackVersion")
     runtimeOnly("com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonVersion")
-    kaptTest("io.micronaut:micronaut-inject-java")
+    kaptTest("io.micronaut:micronaut-inject-java:$micronautVersion")
     testImplementation("org.junit.jupiter:junit-jupiter:$junitVersion")
-}
-
-dependencyManagement {
-    imports {
-        mavenBom("io.micronaut:micronaut-bom:$micronautVersion")
-    }
 }
 
 tasks {
@@ -58,8 +40,5 @@ tasks {
             jvmTarget = "12"
             freeCompilerArgs = listOf("-Xjsr305=strict")
         }
-    }
-    withType<ShadowJar> {
-        mergeServiceFiles()
     }
 }

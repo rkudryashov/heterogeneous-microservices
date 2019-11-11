@@ -19,11 +19,6 @@ application {
 //    mainClassName = "io.ktor.server.netty.EngineMain"
 }
 
-repositories {
-    mavenCentral()
-    jcenter()
-}
-
 dependencies {
     implementation(kotlin("stdlib"))
     implementation("io.ktor:ktor-server-netty:$ktorVersion")

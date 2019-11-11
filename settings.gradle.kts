@@ -9,8 +9,7 @@ include(
 
 pluginManagement {
     val kotlinVersion: String by settings
-    val springBootPluginVersion: String by settings
-    val springDependencyManagementPluginVersion: String by settings
+    val springBootVersion: String by settings
     val shadowPluginVersion: String by settings
 
     resolutionStrategy {
@@ -19,8 +18,7 @@ pluginManagement {
                 "org.jetbrains.kotlin.jvm" -> useVersion(kotlinVersion)
                 "org.jetbrains.kotlin.plugin.spring" -> useVersion(kotlinVersion)
                 "org.jetbrains.kotlin.kapt" -> useVersion(kotlinVersion)
-                "org.springframework.boot" -> useVersion(springBootPluginVersion)
-                "io.spring.dependency-management" -> useVersion(springDependencyManagementPluginVersion)
+                "org.springframework.boot" -> useVersion(springBootVersion)
                 "com.github.johnrengelman.shadow" -> useVersion(shadowPluginVersion)
             }
         }

@@ -8,17 +8,10 @@ val logbackVersion: String by project
 val junitVersion: String by project
 val mockitoVersion: String by project
 
-buildscript {
-    repositories {
-        mavenCentral()
-    }
-}
-
 plugins {
     application
     id("com.github.johnrengelman.shadow")
     kotlin("jvm")
-    id("io.spring.dependency-management")
     jacoco
 }
 
@@ -26,13 +19,9 @@ application {
     mainClassName = "io.heterogeneousmicroservices.helidonservice.HelidonServiceApplication"
 }
 
-repositories {
-    mavenCentral()
-    jcenter()
-}
-
 dependencies {
     implementation(kotlin("stdlib"))
+    implementation(enforcedPlatform("io.helidon:helidon-bom:$helidonVersion"))
     implementation("io.helidon.bundles:helidon-bundles-webserver")
     implementation("io.helidon.media.jackson:helidon-media-jackson-server")
     implementation("io.helidon.bundles:helidon-bundles-config")
@@ -44,12 +33,6 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter:$junitVersion")
     // fixme temporary override mockito version that comes from koin-test
     testRuntimeOnly("org.mockito:mockito-core:$mockitoVersion")
-}
-
-dependencyManagement {
-    imports {
-        mavenBom("io.helidon:helidon-bom:$helidonVersion")
-    }
 }
 
 tasks {

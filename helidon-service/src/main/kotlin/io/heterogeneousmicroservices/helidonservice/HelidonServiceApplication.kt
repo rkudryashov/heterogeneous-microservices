@@ -7,7 +7,6 @@ import io.helidon.common.http.MediaType
 import io.helidon.config.Config
 import io.helidon.media.jackson.server.JacksonSupport
 import io.helidon.webserver.Handler
-import io.helidon.webserver.NotFoundException
 import io.helidon.webserver.Routing
 import io.helidon.webserver.ServerConfiguration
 import io.helidon.webserver.WebServer

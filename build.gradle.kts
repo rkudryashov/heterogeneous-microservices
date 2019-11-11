@@ -6,6 +6,14 @@ repositories {
     mavenCentral()
 }
 
+subprojects {
+    repositories {
+        mavenCentral()
+        jcenter()
+        maven("https://dl.bintray.com/mockito/maven/")
+    }
+}
+
 plugins {
     java
     jacoco
