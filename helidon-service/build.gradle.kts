@@ -39,11 +39,11 @@ dependencies {
     implementation("org.koin:koin-core:$koinVersion")
     implementation("com.orbitz.consul:consul-client:$consulClientVersion")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonVersion")
-    runtime("ch.qos.logback:logback-classic:$logbackVersion")
+    runtimeOnly("ch.qos.logback:logback-classic:$logbackVersion")
     testImplementation("org.koin:koin-test:$koinVersion")
     testImplementation("org.junit.jupiter:junit-jupiter:$junitVersion")
     // fixme temporary override mockito version that comes from koin-test
-    testRuntime("org.mockito:mockito-core:$mockitoVersion")
+    testRuntimeOnly("org.mockito:mockito-core:$mockitoVersion")
 }
 
 dependencyManagement {

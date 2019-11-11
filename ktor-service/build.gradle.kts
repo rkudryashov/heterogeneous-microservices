@@ -32,12 +32,12 @@ dependencies {
     implementation("io.ktor:ktor-client-jackson:$ktorVersion")
     implementation("org.koin:koin-ktor:$koinVersion")
     implementation("com.orbitz.consul:consul-client:$consulClientVersion")
-    runtime("ch.qos.logback:logback-classic:$logbackVersion")
+    runtimeOnly("ch.qos.logback:logback-classic:$logbackVersion")
     testImplementation("io.ktor:ktor-server-test-host:$ktorVersion")
     testImplementation("org.koin:koin-test:$koinVersion")
     testImplementation("org.junit.jupiter:junit-jupiter:$junitVersion")
     // fixme temporary override mockito version that comes from koin-test
-    testRuntime("org.mockito:mockito-core:$mockitoVersion")
+    testRuntimeOnly("org.mockito:mockito-core:$mockitoVersion")
 }
 
 tasks {

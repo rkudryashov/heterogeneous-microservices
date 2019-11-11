@@ -36,9 +36,9 @@ dependencies {
     implementation("io.micronaut:micronaut-runtime")
     implementation("io.micronaut:micronaut-http-client")
     implementation("io.micronaut:micronaut-http-server-netty")
-    runtime("io.micronaut:micronaut-discovery-client")
-    runtime("ch.qos.logback:logback-classic:$logbackVersion")
-    runtime("com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonVersion")
+    runtimeOnly("io.micronaut:micronaut-discovery-client")
+    runtimeOnly("ch.qos.logback:logback-classic:$logbackVersion")
+    runtimeOnly("com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonVersion")
     kaptTest("io.micronaut:micronaut-inject-java")
     testImplementation("org.junit.jupiter:junit-jupiter:$junitVersion")
 }
