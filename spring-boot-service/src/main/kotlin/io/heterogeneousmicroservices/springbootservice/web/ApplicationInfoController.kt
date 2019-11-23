@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-@RequestMapping(path = ["application-info"], produces = [MediaType.APPLICATION_JSON_UTF8_VALUE])
+@RequestMapping(path = ["application-info"], produces = [MediaType.APPLICATION_JSON_VALUE])
 class ApplicationInfoController(
     private val applicationInfoService: ApplicationInfoService
 ) {

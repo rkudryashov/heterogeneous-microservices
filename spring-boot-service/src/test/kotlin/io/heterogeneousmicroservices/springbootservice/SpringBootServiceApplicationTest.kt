@@ -25,7 +25,7 @@ internal class SpringBootServiceApplicationTest {
         webTestClient
             .get().uri("/application-info")
             .exchange()
-            .expectHeader().contentType(MediaType.APPLICATION_JSON_UTF8)
+            .expectHeader().contentType(MediaType.APPLICATION_JSON)
             .expectStatus().isOk
             .expectBody(ApplicationInfo::class.java)
             .returnResult().apply {

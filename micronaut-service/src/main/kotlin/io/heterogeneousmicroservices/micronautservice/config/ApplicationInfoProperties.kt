@@ -9,7 +9,7 @@ class ApplicationInfoProperties {
     lateinit var framework: FrameworkConfigurationProperties
 
     @ConfigurationProperties("framework")
-    class FrameworkConfigurationProperties() {
+    class FrameworkConfigurationProperties {
         lateinit var name: String
         lateinit var releaseYear: String
     }
