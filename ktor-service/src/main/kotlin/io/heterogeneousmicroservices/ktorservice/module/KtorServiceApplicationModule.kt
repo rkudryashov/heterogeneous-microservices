@@ -67,4 +67,4 @@ private fun buildConsulRegistration(serviceName: String) = ImmutableRegistration
     .build()
 
 private fun Application.isTest(): Boolean =
-    environment.config.propertyOrNull("ktor.deployment.environment")?.getString().equals("test")
+    environment.config.property("ktor.deployment.environment").getString() == "test"

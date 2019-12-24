@@ -13,7 +13,6 @@ class ConsulFeature(private val consulClient: Consul) {
     }
 
     companion object Feature : HttpClientFeature<Config, ConsulFeature> {
-
         var serviceInstanceIndex: Int = 0
 
         override val key = AttributeKey<ConsulFeature>("ConsulFeature")

@@ -3,7 +3,7 @@ package io.heterogeneousmicroservices.helidonservice.service
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import com.orbitz.consul.Consul
-import com.orbitz.consul.model.health.ServiceHealth
+import com.orbitz.consul.model.health.Service
 import io.heterogeneousmicroservices.helidonservice.model.ApplicationInfo
 import java.net.URI
 import java.net.http.HttpClient
@@ -20,7 +20,7 @@ class ServiceClient(
 
     fun getApplicationInfo(serviceName: String): ApplicationInfo {
         val serviceInstance = getNext(serviceName)
-        val serviceUrl = "http://${serviceInstance.service.address}:${serviceInstance.service.port}"
+        val serviceUrl = "http://${serviceInstance.address}:${serviceInstance.port}"
         val request = HttpRequest.newBuilder()
             .uri(URI.create("$serviceUrl/application-info"))
             .build()
@@ -28,10 +28,10 @@ class ServiceClient(
         return objectMapper.readValue(response.body())
     }
 
-    private fun getNext(serviceName: String): ServiceHealth {
+    private fun getNext(serviceName: String): Service {
         val serviceInstances = consulClient.healthClient().getHealthyServiceInstances(serviceName).response
         val selectedInstance = serviceInstances[serviceInstanceIndex]
         serviceInstanceIndex = (serviceInstanceIndex + 1) % serviceInstances.size
-        return selectedInstance
+        return selectedInstance.service
     }
 }
