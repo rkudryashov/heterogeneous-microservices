@@ -1,100 +1,100 @@
 {
-	"info": {
-		"_postman_id": "f4d32211-7ddf-40c5-8863-98c0aa4609cf",
-		"name": "Heterogeneous microservices test",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
-	},
-	"item": [
-		{
-			"name": "Get application info",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "localhost:{{port}}/application-info",
-					"host": [
-						"localhost"
-					],
-					"port": "{{port}}",
-					"path": [
-						"application-info"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get extended application info",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "localhost:{{port}}/application-info?request-to=spring-boot-service",
-					"host": [
-						"localhost"
-					],
-					"port": "{{port}}",
-					"path": [
-						"application-info"
-					],
-					"query": [
-						{
-							"key": "request-to",
-							"value": "spring-boot-service"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get logo",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "localhost:{{port}}/application-info/logo",
-					"host": [
-						"localhost"
-					],
-					"port": "{{port}}",
-					"path": [
-						"application-info",
-						"logo"
-					]
-				}
-			},
-			"response": []
-		}
-	],
-	"event": [
-		{
-			"listen": "prerequest",
-			"script": {
-				"id": "737fc8c9-91a3-4aeb-a2f0-90474aaf78bb",
-				"type": "text/javascript",
-				"exec": [
-					""
-				]
-			}
-		},
-		{
-			"listen": "test",
-			"script": {
-				"id": "de350946-5e7f-4bef-b239-d0b08c923e16",
-				"type": "text/javascript",
-				"exec": [
-					""
-				]
-			}
-		}
-	],
-	"variable": [
-		{
-			"id": "1c643348-8cab-4c68-8161-1388ea5ec568",
-			"key": "port",
-			"value": "8081",
-			"type": "string"
-		}
-	]
+  "info": {
+    "_postman_id": "f4d32211-7ddf-40c5-8863-98c0aa4609cf",
+    "name": "Heterogeneous microservices test",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Get application info",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "localhost:{{port}}/application-info",
+          "host": [
+            "localhost"
+          ],
+          "port": "{{port}}",
+          "path": [
+            "application-info"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get extended application info",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "localhost:{{port}}/application-info?request-to=spring-boot-service",
+          "host": [
+            "localhost"
+          ],
+          "port": "{{port}}",
+          "path": [
+            "application-info"
+          ],
+          "query": [
+            {
+              "key": "request-to",
+              "value": "spring-boot-service"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get logo",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "localhost:{{port}}/application-info/logo",
+          "host": [
+            "localhost"
+          ],
+          "port": "{{port}}",
+          "path": [
+            "application-info",
+            "logo"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "id": "737fc8c9-91a3-4aeb-a2f0-90474aaf78bb",
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "id": "de350946-5e7f-4bef-b239-d0b08c923e16",
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "id": "1c643348-8cab-4c68-8161-1388ea5ec568",
+      "key": "port",
+      "value": "8081",
+      "type": "string"
+    }
+  ]
 }

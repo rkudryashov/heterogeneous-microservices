@@ -14,7 +14,7 @@ class LoadTest extends Simulation {
 	val scn = scenario("GetApplicationInfo").repeat(1000) {
 		exec(http("GetApplicationInfo")
 			.get("/application-info")
-			.check(status.is(200))
+			.check(status.is(50))
 			.check(jsonPath("$.name")))
 	}
 

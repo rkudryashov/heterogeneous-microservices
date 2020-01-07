@@ -1,8 +1,40 @@
 ### Get application info
 GET http://localhost:{{port}}/application-info
 
-### Get application info for two services
-GET http://localhost:{{port}}/application-info?request-to={{request-to}}
+> scripts/check-status-script.js
+
+
+### Get application info interacting with helidon-service
+GET http://localhost:{{port}}/application-info?request-to=helidon-service
+
+> scripts/check-status-script.js
+
+
+### Get application info interacting with ktor-service
+GET http://localhost:{{port}}/application-info?request-to=ktor-service
+
+> scripts/check-status-script.js
+
+
+### Get application info interacting with micronaut-service
+GET http://localhost:{{port}}/application-info?request-to=micronaut-service
+
+> scripts/check-status-script.js
+
+
+### Get application info interacting with quarkus-service
+GET http://localhost:{{port}}/application-info?request-to=quarkus-service
+
+> scripts/check-status-script.js
+
+
+### Get application info interacting with spring-boot-service
+GET http://localhost:{{port}}/application-info?request-to=spring-boot-service
+
+> scripts/check-status-script.js
+
 
 ### Get logo
 GET http://localhost:{{port}}/application-info/logo
+
+> scripts/check-status-script.js
