@@ -1,0 +1,15 @@
+quarkus:
+  http:
+    host: localhost
+    port: 8084
+
+#configsource:
+#  consul:
+#    host: localhost:8500
+#    validity: 5
+
+application-info:
+  name: quarkus-service
+  framework:
+    name: Quarkus
+    releaseYear: 2019

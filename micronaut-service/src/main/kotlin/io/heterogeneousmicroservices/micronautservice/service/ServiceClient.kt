@@ -12,6 +12,7 @@ class ServiceClient(
     @Client(helidonServiceName) @Inject private val helidonServiceClient: RxHttpClient,
     @Client(ktorServiceName) @Inject private val ktorServiceClient: RxHttpClient,
     @Client(micronautServiceName) @Inject private val micronautServiceClient: RxHttpClient,
+    @Client(quarkusServiceName) @Inject private val quarkusServiceClient: RxHttpClient,
     @Client(springBootServiceName) @Inject private val springBootServiceClient: RxHttpClient
 ) {
 
@@ -19,6 +20,7 @@ class ServiceClient(
         const val helidonServiceName = "helidon-service"
         const val ktorServiceName = "ktor-service"
         const val micronautServiceName = "micronaut-service"
+        const val quarkusServiceName = "quarkus-service"
         const val springBootServiceName = "spring-boot-service"
     }
 
@@ -26,6 +28,7 @@ class ServiceClient(
         helidonServiceName to helidonServiceClient,
         ktorServiceName to ktorServiceClient,
         micronautServiceName to micronautServiceClient,
+        quarkusServiceName to quarkusServiceClient,
         springBootServiceName to springBootServiceClient
     )
 
