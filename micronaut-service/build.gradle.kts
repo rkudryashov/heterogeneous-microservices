@@ -1,3 +1,4 @@
+import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 val micronautVersion: String by project
@@ -32,6 +33,9 @@ dependencies {
 }
 
 tasks {
+    withType<ShadowJar> {
+        mergeServiceFiles()
+    }
     withType<Test> {
         useJUnitPlatform()
     }
