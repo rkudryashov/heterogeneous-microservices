@@ -5,5 +5,5 @@ image:https://codecov.io/gh/rkudryashov/heterogeneous-microservices/branch/maste
 
 Articles:
 
-- in English
+- https://romankudryashov.com/blog/2020/01/heterogeneous-microservices/[in English]
 - https://habr.com/ru/company/raiffeisenbank/blog/456376/[in Russian]
