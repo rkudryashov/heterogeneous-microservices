@@ -31,7 +31,6 @@ dependencies {
 
 quarkus {
     setOutputDirectory("$projectDir/build/classes/kotlin/main")
-    setSourceDir("$projectDir/src/main/kotlin")
 }
 
 allOpen {
