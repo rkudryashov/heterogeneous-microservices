@@ -17,7 +17,7 @@ class ApplicationInfoService(
             applicationInfoProperties.framework.name,
             applicationInfoProperties.framework.releaseYear.toInt()
         ),
-        anotherServiceName?.let { serviceClient.getApplicationInfo(anotherServiceName) }
+        anotherServiceName?.let { serviceClient.getApplicationInfo(it) }
     )
 
     fun getLogo(): ByteArray = javaClass.classLoader.getResourceAsStream("logo.png")?.readBytes()

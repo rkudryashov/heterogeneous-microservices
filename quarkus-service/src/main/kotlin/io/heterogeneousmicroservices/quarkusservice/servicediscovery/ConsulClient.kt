@@ -14,8 +14,8 @@ class ConsulClient(
     private val port: Int
 ) {
 
-    private val consulUrl: String = "http://localhost:8500"
-    private val consulClient: Consul by lazy {
+    private val consulUrl = "http://localhost:8500"
+    private val consulClient by lazy {
         Consul.builder().withUrl(consulUrl).build()
     }
     private var serviceInstanceIndex: Int = 0

@@ -17,8 +17,8 @@ class ApplicationInfoResource(
     fun get(@QueryParam("request-to") requestTo: String?): Response =
         Response.ok(applicationInfoService.get(requestTo)).build()
 
-    @Path("/logo")
     @GET
+    @Path("/logo")
     @Produces("image/png")
     fun logo(): Response = Response.ok(applicationInfoService.getLogo()).build()
 }

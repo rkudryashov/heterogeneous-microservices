@@ -29,10 +29,6 @@ dependencies {
     testImplementation("io.rest-assured:rest-assured")
 }
 
-quarkus {
-    setOutputDirectory("$projectDir/build/classes/kotlin/main")
-}
-
 allOpen {
     annotation("javax.enterprise.context.ApplicationScoped")
 }
