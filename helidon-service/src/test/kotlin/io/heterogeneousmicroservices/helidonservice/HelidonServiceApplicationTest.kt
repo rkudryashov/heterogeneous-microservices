@@ -22,7 +22,7 @@ import java.net.HttpURLConnection
 import java.net.URL
 import java.util.concurrent.TimeUnit
 
-internal class HelidonServiceApplicationTest : AutoCloseKoinTest() {
+class HelidonServiceApplicationTest : AutoCloseKoinTest() {
 
     private var server: WebServer? = null
 

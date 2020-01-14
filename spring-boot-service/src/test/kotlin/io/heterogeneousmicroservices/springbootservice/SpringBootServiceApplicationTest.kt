@@ -15,7 +15,7 @@ import org.springframework.test.web.reactive.server.WebTestClient
 
 @ExtendWith(SpringExtension::class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-internal class SpringBootServiceApplicationTest {
+class SpringBootServiceApplicationTest {
 
     @Autowired
     private lateinit var webTestClient: WebTestClient

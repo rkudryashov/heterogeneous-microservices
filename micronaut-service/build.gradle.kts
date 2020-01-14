@@ -29,6 +29,7 @@ dependencies {
     runtimeOnly("ch.qos.logback:logback-classic:$logbackVersion")
     runtimeOnly("com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonVersion")
     kaptTest("io.micronaut:micronaut-inject-java:$micronautVersion")
+    testImplementation("io.micronaut.test:micronaut-test-junit5")
     testImplementation("org.junit.jupiter:junit-jupiter:$junitVersion")
 }
 

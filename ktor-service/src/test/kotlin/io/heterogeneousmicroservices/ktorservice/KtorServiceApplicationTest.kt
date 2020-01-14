@@ -20,7 +20,7 @@ import org.koin.test.AutoCloseKoinTest
 import org.koin.test.mock.declareMock
 import java.io.File
 
-internal class KtorServiceApplicationTest : AutoCloseKoinTest() {
+class KtorServiceApplicationTest : AutoCloseKoinTest() {
 
     companion object {
         @BeforeAll
