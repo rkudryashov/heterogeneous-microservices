@@ -1,8 +1,6 @@
-.gradle
-build/
-
+/.gradle/
+/.idea/
+/build/
+/*/build/
 ### IntelliJ IDEA ###
-.idea/**
-out/
-
-**/*.log
+/*/out/
