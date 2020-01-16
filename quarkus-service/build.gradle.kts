@@ -1,5 +1,5 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import io.quarkus.gradle.tasks.QuarkusBuild
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 version = "1.0.0"
 
