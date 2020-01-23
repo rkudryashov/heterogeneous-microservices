@@ -12,4 +12,4 @@ application-info:
   name: quarkus-service
   framework:
     name: Quarkus
-    releaseYear: 2019
+    release-year: 2019
