@@ -9,26 +9,23 @@ import io.micronaut.http.HttpStatus
 import io.micronaut.http.MediaType
 import io.micronaut.http.client.HttpClient
 import io.micronaut.http.client.annotation.Client
-import io.micronaut.runtime.server.EmbeddedServer
 import io.micronaut.test.annotation.MicronautTest
 import org.junit.jupiter.api.Assertions.assertArrayEquals
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
-import java.net.URL
 import javax.inject.Inject
 
 @MicronautTest
 class MicronautServiceApplicationTest {
 
     @Inject
-    @Client("/")
-    lateinit var server: EmbeddedServer
+    @field: Client("/")
+    private lateinit var client: HttpClient
 
     @Test
     fun testGet() {
-        val client = createBlockingHttpClient()
         val response: HttpResponse<ApplicationInfo> =
-            client.exchange("/application-info", ApplicationInfo::class.java)
+            client.toBlocking().exchange("/application-info", ApplicationInfo::class.java)
 
         assertEquals(HttpStatus.OK, response.status)
         assertEquals(MediaType.APPLICATION_JSON, response.contentType.get().name)
@@ -38,9 +35,8 @@ class MicronautServiceApplicationTest {
 
     @Test
     fun testGetLogo() {
-        val client = createBlockingHttpClient()
         val response: HttpResponse<ByteArray> =
-            client.exchange("/application-info/logo", ByteArray::class.java)
+            client.toBlocking().exchange("/application-info/logo", ByteArray::class.java)
 
         assertEquals(HttpStatus.OK, response.status)
         assertEquals(MediaType.IMAGE_PNG, response.contentType.get().name)
@@ -48,7 +44,4 @@ class MicronautServiceApplicationTest {
         val expected = loader.getResource("classpath:logo.png").get().readBytes()
         assertArrayEquals(expected, response.body.get())
     }
-
-    private fun createBlockingHttpClient() =
-        HttpClient.create(URL("http://" + server.host + ":" + server.port)).toBlocking()
 }
