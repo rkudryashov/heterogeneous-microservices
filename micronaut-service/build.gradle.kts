@@ -2,7 +2,6 @@ import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 val micronautVersion: String by project
-val jacksonVersion: String by project
 val logbackVersion: String by project
 val junitVersion: String by project
 
@@ -27,8 +26,8 @@ dependencies {
     implementation("io.micronaut:micronaut-http-server-netty")
     runtimeOnly("io.micronaut:micronaut-discovery-client")
     runtimeOnly("ch.qos.logback:logback-classic:$logbackVersion")
-    runtimeOnly("com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonVersion")
-    kaptTest("io.micronaut:micronaut-inject-java:$micronautVersion")
+    runtimeOnly("com.fasterxml.jackson.module:jackson-module-kotlin")
+    kaptTest("io.micronaut:micronaut-inject-java")
     testImplementation("io.micronaut.test:micronaut-test-junit5")
     testImplementation("org.junit.jupiter:junit-jupiter:$junitVersion")
 }

@@ -2,7 +2,6 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 val springBootVersion: String by project
 val springCloudVersion: String by project
-val jacksonVersion: String by project
 val junitVersion: String by project
 
 plugins {
@@ -19,7 +18,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-webflux")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("org.springframework.cloud:spring-cloud-starter-consul-all")
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonVersion")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 

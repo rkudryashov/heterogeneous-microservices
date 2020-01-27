@@ -14,11 +14,11 @@ pluginManagement {
         fun PluginDependenciesSpec.resolve(id: String, versionKey: String = id) = id(id) version versionKey.getVersion()
 
         resolve("org.jetbrains.kotlin.jvm")
+        resolve("org.jetbrains.kotlin.kapt", "org.jetbrains.kotlin.jvm")
         resolve("org.jetbrains.kotlin.plugin.spring", "org.jetbrains.kotlin.jvm")
         resolve("org.jetbrains.kotlin.plugin.allopen", "org.jetbrains.kotlin.jvm")
-        resolve("org.jetbrains.kotlin.kapt", "org.jetbrains.kotlin.jvm")
-        resolve("org.springframework.boot")
         resolve("com.github.johnrengelman.shadow")
         resolve("io.quarkus")
+        resolve("org.springframework.boot")
     }
 }
