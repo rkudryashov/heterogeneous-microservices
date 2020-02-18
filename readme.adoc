@@ -1,7 +1,6 @@
 = Heterogeneous microservices
 
-image:https://travis-ci.com/rkudryashov/heterogeneous-microservices.svg?branch=master[Latest release, link=https://travis-ci.com/rkudryashov/heterogeneous-microservices]
-image:https://codecov.io/gh/rkudryashov/heterogeneous-microservices/branch/master/graph/badge.svg[Code coverage, link=https://codecov.io/gh/rkudryashov/heterogeneous-microservices]
+image:https://github.com/rkudryashov/heterogeneous-microservices/workflows/Java%20CI/badge.svg?branch=master[Java CI,link=https://github.com/rkudryashov/heterogeneous-microservices/actions]
 
 Articles:
 
