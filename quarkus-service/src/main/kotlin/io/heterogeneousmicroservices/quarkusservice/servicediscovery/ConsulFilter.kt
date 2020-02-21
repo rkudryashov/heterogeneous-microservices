@@ -1,7 +1,6 @@
 package io.heterogeneousmicroservices.quarkusservice.servicediscovery
 
 import org.apache.http.client.utils.URIBuilder
-import java.net.URI
 import javax.enterprise.context.ApplicationScoped
 import javax.inject.Inject
 import javax.ws.rs.client.ClientRequestContext
@@ -17,7 +16,7 @@ class ConsulFilter(
     override fun filter(requestContext: ClientRequestContext) {
         val serviceName = requestContext.uri.host
         val serviceInstance = consulClient.getServiceInstance(serviceName)
-        val newUri: URI = URIBuilder(URI.create(requestContext.uri.toString()))
+        val newUri = URIBuilder(requestContext.uri)
             .setHost(serviceInstance.address)
             .setPort(serviceInstance.port)
             .build()
