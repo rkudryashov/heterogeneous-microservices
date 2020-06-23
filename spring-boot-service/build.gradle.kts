@@ -2,7 +2,6 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 val springBootVersion: String by project
 val springCloudVersion: String by project
-val junitVersion: String by project
 
 plugins {
     kotlin("jvm")

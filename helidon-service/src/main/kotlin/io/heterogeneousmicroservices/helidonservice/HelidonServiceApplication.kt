@@ -5,7 +5,7 @@ import com.orbitz.consul.model.agent.ImmutableRegistration
 import io.helidon.common.http.Http
 import io.helidon.common.http.MediaType
 import io.helidon.config.Config
-import io.helidon.media.jackson.server.JacksonSupport
+import io.helidon.media.jackson.common.JacksonSupport
 import io.helidon.webserver.Handler
 import io.helidon.webserver.Routing
 import io.helidon.webserver.ServerConfiguration
@@ -56,6 +56,7 @@ fun startServer(
 
     val server: WebServer = WebServer
         .builder(createRouting(applicationInfoService))
+        .addMediaSupport(JacksonSupport.create())
         .config(serverConfig)
         .build()
 
@@ -70,7 +71,6 @@ fun startServer(
 }
 
 private fun createRouting(applicationInfoService: ApplicationInfoService) = Routing.builder()
-    .register(JacksonSupport.create())
     .get("/application-info", Handler { req, res ->
         val requestTo: String? = req.queryParams()
             .first("request-to")
